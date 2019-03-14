@@ -6,7 +6,7 @@ h1{
   margin-bottom: 10px;
   width: 50%;
   backgroundColor: blue;
-  color:white 
+  color:white
 }
 .quizNavigate{
   display: inline;
@@ -22,4 +22,31 @@ h1{
   padding: 10px;
   margin: 10px;
   width: 40%
+}
+
+#parent{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  flex: 1 1 0;
+  align-self: center;
+}
+
+#profile{
+  flex: 1 1 0;
+}
+
+#questionPane{
+  flex: 1 1 0;
+}
+
+.container{
+  width: inherit;
+  display: flex;
+  flex-direction: row;
+  align-content:stretch;
+}
+
+body{
+  width: 100%;
 }

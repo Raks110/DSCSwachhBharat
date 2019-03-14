@@ -103,11 +103,7 @@
 
 var i = 1;
 
-function nextQuestion(){
-  i++;
-  if(i>questions.length - 1){
-    i = 0;
-  }
+function setData(i){
   document.getElementById('question').innerText = questions[i].title;
   if(questions[i].markedForReview){
     document.getElementById('question').style.color = 'violet';
@@ -124,9 +120,21 @@ function nextQuestion(){
   document.getElementById('option3').style.backgroundColor = 'blue';
   document.getElementById('option4').value = questions[i].option4;
   document.getElementById('option4').style.backgroundColor = 'blue';
+  document.getElementById('markRev').value = "Mark for Review";
   if(!(questions[i].checked == false)){
     document.getElementById(questions[i].checked).style.backgroundColor = 'green';
   }
+  if(questions[i].markedForReview){
+    document.getElementById('markRev').value = "Unmark this Question";
+  }
+}
+
+function nextQuestion(){
+  i++;
+  if(i>questions.length - 1){
+    i = 0;
+  }
+  setData(i);
 }
 
 function prevQuestion(){
@@ -134,36 +142,31 @@ function prevQuestion(){
   if(i<0){
     i = questions.length - 1;
   }
-  document.getElementById('question').innerText = questions[i].title;
-  if(questions[i].markedForReview){
-    document.getElementById('question').style.color = 'violet';
-  }
-  else{
-    document.getElementById('question').style.color = 'red';
-  }
-  questions[i].visited = true;
-  document.getElementById('option1').value = questions[i].option1;
-  document.getElementById('option1').style.backgroundColor = 'blue';
-  document.getElementById('option2').value = questions[i].option2;
-  document.getElementById('option2').style.backgroundColor = 'blue';
-  document.getElementById('option3').value = questions[i].option3;
-  document.getElementById('option3').style.backgroundColor = 'blue';
-  document.getElementById('option4').value = questions[i].option4;
-  document.getElementById('option4').style.backgroundColor = 'blue';
-  if(!(questions[i].checked == false)){
-    document.getElementById(questions[i].checked).style.backgroundColor = 'green';
-  }
+  setData(i);
 }
 
 function markQuestion(){
-  questions[i].markedForReview = true;
-  document.getElementById('question').style.color = 'violet';
+  if(!questions[i].markedForReview){
+    questions[i].markedForReview = true;
+    document.getElementById('question').style.color = 'violet';
+    document.getElementById('markRev').value = "Unmark this Question";
+  }
+  else{
+      questions[i].markedForReview = false;
+      document.getElementById('question').style.color = 'red';
+      document.getElementById('markRev').value = "Mark for Review";
+  }
 }
 
 function selectedOption(id){
   if(!(questions[i].checked == false)){
     document.getElementById(questions[i].checked).style.backgroundColor = 'blue';
   }
-  questions[i].checked = id;
-  document.getElementById(questions[i].checked).style.backgroundColor = 'green';
+  if(id != questions[i].checked){
+    questions[i].checked = id;
+    document.getElementById(questions[i].checked).style.backgroundColor = 'green';
+  }
+  else{
+    questions[i].checked = false;
+  }
 }
