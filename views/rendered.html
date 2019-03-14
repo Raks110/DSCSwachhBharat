@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <title>Swachh Bharat</title>
+    <link rel="shortcut ico" href="/static/favicon.ico">
+    <link rel="stylesheet" href="/static/design.css">
+    <script src = "/static/editions.js"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
+  </head>
+
+  <body>
+
+    <input class="questNav" type="button" name="previous" value="Previous" onclick="prevQuestion()"/>
+
+    <div id="parent">
+      <h1 id="question"></h1>
+      <input id = 'option1' class="quizOptions" type = 'button' value = '' onclick="selectedOption(this.id)"/>
+      <input id = 'option2' class="quizOptions" type = 'button' value = '' onclick="selectedOption(this.id)"/>
+      <input id = 'option3' class="quizOptions" type = 'button' value = '' onclick="selectedOption(this.id)"/>
+      <input id = 'option4' class="quizOptions" type = 'button' value = '' onclick="selectedOption(this.id)"/>
+    </div>
+
+    <input class="questNav" type="button" name="next" value="Next" onclick="nextQuestion()"/>
+    <input class="questNav" type="button" name="markReview" value="Mark for Review" onclick="markQuestion()"/>
+
+  </body>
+  <script type="text/javascript">
+
+    prevQuestion();
+
+  </script>
+
+
+</html>
