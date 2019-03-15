@@ -3,9 +3,9 @@
     <title>Swachh Bharat</title>
     <link rel="icon" href="/static/favicon.ico">
     <link rel="stylesheet" href="/static/design.css">
-    <script src = "/static/editions.js"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
+    <script src = "/static/editions.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
   </head>
 
@@ -14,21 +14,31 @@
     <div class = "container">
 
       <div id = "profile">
-        
+
       </div>
 
       <div id="parent">
 
-        <input class="questNav" type="button" name="previous" value="Previous" onclick="prevQuestion()"/>
+        <button class="questNav" onclick="prevQuestion()"> <i class="fas fa-chevron-circle-left" style="padding-right:10px"></i>Previous</button>
 
-        <h1 id="question"></h1>
-        <input id = 'option1' class="quizOptions" type = 'button' value = '' onclick="selectedOption(this.id)"/>
-        <input id = 'option2' class="quizOptions" type = 'button' value = '' onclick="selectedOption(this.id)"/>
-        <input id = 'option3' class="quizOptions" type = 'button' value = '' onclick="selectedOption(this.id)"/>
-        <input id = 'option4' class="quizOptions" type = 'button' value = '' onclick="selectedOption(this.id)"/>
+        <div class="questionBlock">
 
-        <input class="questNav" type="button" name="next" value="Next" onclick="nextQuestion()"/>
-        <input id="markRev" class="questNav" type="button" name="markReview" value="Mark for Review" onclick="markQuestion()"/>
+          <div id="question"></div>
+          <input id = 'option1' class="quizOptions" type = 'button' value = '' onclick="selectedOption(this.id)" onmouseover="hovereffect(this.id)" onmouseout="dehover(this.id)"/>
+          <input id = 'option2' class="quizOptions" type = 'button' value = '' onclick="selectedOption(this.id)" onmouseover="hovereffect(this.id)" onmouseout="dehover(this.id)"/>
+          <input id = 'option3' class="quizOptions" type = 'button' value = '' onclick="selectedOption(this.id)" onmouseover="hovereffect(this.id)" onmouseout="dehover(this.id)"/>
+          <input id = 'option4' class="quizOptions" type = 'button' value = '' onclick="selectedOption(this.id)" onmouseover="hovereffect(this.id)" onmouseout="dehover(this.id)"/>
+
+          <div id="markedSymbol"><i class="fas fa-clipboard-check" style="padding-right:10px"></i> This question is marked.</div>
+
+        </div>
+
+        <button class="questNav" onclick="nextQuestion()"><i class="fas fa-angle-double-right" style="padding-right:10px"></i>Next</button>
+        <button class="questNav" onclick="markQuestion()">
+          <i class="fas fa-highlighter" id="marked"></i>
+          <i class="fas fa-eraser" id="unmarked"></i>
+          <span id="markRev">Mark For Review</span>
+        </button>
 
       </div>
 
