@@ -7,6 +7,11 @@ $.get("/getQuests",function(Array) {
   console.log(questions);
 })
 
+function initQuests(){
+  for(var i =0;i<questions.length;i++)
+    $("#innerPane").append("<button class='questionBlocks' id=q" + i + " onclick='jumpQuest(this.id)'>" + parseInt(i+1) + "</button>")
+}
+
 var i = 1;
 
 function setData(i){
@@ -69,11 +74,19 @@ function markQuestion(){
   if(!questions[i].markedForReview){
     questions[i].markedForReview = true;
     document.getElementById("markedSymbol").style.visibility = 'visible';
+    if(!questions[i].checked)
+      document.getElementById("q" + i).style.backgroundColor = 'rgb(247, 206, 85)';
+    else
+      document.getElementById("q" + i).style.backgroundColor = 'rgb(143, 61, 143)';
     unMarking();
   }
   else{
       questions[i].markedForReview = false;
-      document.getElementById("markedSymbol").style.visibility = 'hidden';
+      document.getElementById("markedSymbol").style.visibility = 'hidden';if(!questions[i].checked);
+      if(!questions[i].checked)
+        document.getElementById("q" + i).style.backgroundColor = 'white';
+      else
+        document.getElementById("q" + i).style.backgroundColor = 'rgb(83, 172, 83)';
       marking();
   }
 }
@@ -85,10 +98,22 @@ function selectedOption(id){
   if(id != questions[i].checked){
     questions[i].checked = id;
     document.getElementById(questions[i].checked).style.backgroundColor = 'rgb(137, 50, 42)';
+    if(questions[i].markedForReview){
+      document.getElementById("q" + i).style.backgroundColor = 'rgb(143, 61, 143)';
+    }
+    else{
+      document.getElementById("q" + i).style.backgroundColor = 'rgb(83, 172, 83)';
+    }
   }
   else{
     questions[i].checked = false;
     document.getElementById(id).style.backgroundColor = 'rgba(0,0,0,0.9)';
+    if(questions[i].markedForReview){
+      document.getElementById("q" + i).style.backgroundColor = 'rgb(247, 206, 85)';
+    }
+    else{
+      document.getElementById("q" + i).style.backgroundColor = 'white';
+    }
   }
 }
 
@@ -104,4 +129,9 @@ function dehover(id){
     document.getElementById(id).style.backgroundColor = 'rgba(255,255,255,0.8)';
   else
     document.getElementById(id).style.backgroundColor = 'rgb(208, 121, 113)';
+}
+
+function jumpQuest(id){
+  i = parseInt(id.substring(1));
+  setData(i);
 }

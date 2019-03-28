@@ -78,10 +78,6 @@ body{
   flex: 1 1 0;
 }
 
-#questionPane{
-  flex: 1 1 0;
-}
-
 #question{
   color: white;
   padding-bottom: 20px;
@@ -107,6 +103,44 @@ body{
 
 button{
   outline: none;
+}
+
+.questionBlocks{
+
+    display: inline;
+    padding: 10px;
+    margin: 8px 8px 8px 8px;
+    background-color: rgba(255,255,255,0.9);
+    width: 50px;
+    color:black;
+    border: 0px;
+    border-radius: 20px;
+    transition-duration: 0.3s
+}
+
+.questionBlocks:hover{
+
+    background-color: rgba(0,0,0,0.7);
+    color:white;
+    transition-duration: 0.3s;
+}
+
+#questionPane{
+  width: 208px;
+  padding-left: 8px;
+  margin-left: 50px;
+  background-color: rgba(0,0,0,0.7);
+  border-radius: 10px;
+  float: right;
+  height: 100%;
+}
+
+#flexCont{
+  flex: 1 1 0;
+}
+
+#legend{
+  font-size: 13px;
 }
 
 @media (max-width:930px) {
