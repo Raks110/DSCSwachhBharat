@@ -16,14 +16,13 @@ body{
     );
     overflow: -moz-scrollbars-vertical;
     overflow-x:hidden;
-    overflow-y:hidden;
 }
 
 .quizOptions{
   display: block;
   margin-bottom: 10px;
   width: 100%;
-  backgroundColor: rgba(255,255,255,0.8);
+  background-color: rgba(255,255,255,0.8);
   color:black;
   border: 0px;
   border-radius: 20px;
@@ -32,17 +31,17 @@ body{
   transition-duration: 0.3s
 }
 
-.quizOptions:hover{
+.quizOptions:focus{
   transition-duration: 0.3s;
-  backgroundColor: rgba(0,0,0,0.9);
+  background-color: rgba(0,0,0,0.9);
   color:white;
 }
 
 .questNav{
   display: inline;
-  padding: 10px;
+  padding: 15px 10px;
   margin: 10px 0px 10px 0px;
-  width: 49%;
+  width: 99%;
   background-color: rgba(0,0,0,0.7);
   color:white;
   border: 0px;
@@ -56,15 +55,10 @@ body{
   transition-duration: 0.3s
 }
 
-#time{
-  background-color: rgba(255,255,255,0.9);
-  color:black;
-  font-weight: 600;
-}
-
-#time:hover{
-  background-color: rgba(0,0,0,0.7);
+.labels{
   color:white;
+  text-align: left;
+  padding: 0px 0px 20px 0px;
 }
 
 #parent{
@@ -89,14 +83,6 @@ body{
   flex: 1 1 0;
 }
 
-#question{
-  color: white;
-  padding-bottom: 20px;
-  font-size: 100%;
-  width: 100%;
-  text-align: center;
-}
-
 .container{
   width: inherit;
   height: 100%;
@@ -104,48 +90,8 @@ body{
   flex-direction: row;
 }
 
-#markedSymbol{
-  color:white;
-  text-align: center;
-  width: 100%;
-  font-size:80%;
-  padding-top:10px
-}
-
 button{
   outline: none;
-}
-
-.questionBlocks{
-
-    display: inline;
-    padding: 10px;
-    margin: 8px 8px 8px 8px;
-    background-color: rgba(255,255,255,0.9);
-    width: 50px;
-    color:black;
-    border: 0px;
-    border-radius: 20px;
-    transition-duration: 0.3s
-}
-
-.questionBlocks:hover{
-
-    background-color: rgba(0,0,0,0.7);
-    color:white;
-    transition-duration: 0.3s;
-}
-
-#questionPane{
-  width: 208px;
-  padding-left: 8px;
-  margin-left: 50px;
-  background-color: rgba(0,0,0,0.7);
-  border-radius: 10px;
-  padding-top:27%;
-  float: right;
-  height: 100%;
-  display: none;
 }
 
 #flexCont{
@@ -156,58 +102,6 @@ button{
   flex: 1 1 0;
 }
 
-#profile{
-  width: 208px;
-  padding-left: 8px;
-  margin-right: 50px;
-  background-color: rgba(0,0,0,0.7);
-  border-radius: 10px;
-  padding-top: 29%;
-  float: left;
-  height: 100%;
-  display: none;
-}
-
-#legend{
-  font-size: 13px;
-}
-
-.toggle{
-  display: inline;
-  padding: 10px;
-  width: 49%;
-  background-color: transparent;
-  color:white;
-  border: 0px;
-  border-radius: 20px;
-  transition-duration: 0.3s
-}
-
-.toggle:hover{
-    background-color: rgba(255,255,255,0.9);
-    color:black;
-    transition-duration: 0.3s
-}
-
-@media (max-width:930px) {
-
-  .questNav,.toggle{
-    display: block;
-    width: 99%;
-  }
-
-  #aboveTime{
-    display: inline;
-    width: 49%;
-  }
-
-  #time{
-    display: inline;
-    width:49%;
-  }
-
-}
-
 @media (max-width:750px) {
 
   .container{
@@ -216,11 +110,6 @@ button{
 
   #parent{
     width:80%;
-  }
-
-  .questNav,.toggle{
-    display: inline;
-    width: 49%;
   }
 
   #flexCont{
@@ -235,39 +124,13 @@ button{
     flex: 0 0 0;
   }
 
-  #questionPane{
-    position: absolute;
-    top:0;
-    right: 0;
-    z-index: 999;
-    background-color: rgba(0,0,0,0.9);
-  }
-
-  #profile{
-    position: absolute;
-    top:0;
-    left:0;
-    z-index: 999;
-    background-color: rgba(0,0,0,0.9);
-  }
-
 }
 
-@media (max-width:400px){
-
-  .questNav,.toggle{
+@media (max-width:530px){
+  td{
     display: block;
-    width: 99%;
   }
-
-    #aboveTime{
-      display: inline;
-      width: 49%;
-    }
-
-    #time{
-      display: inline;
-      width:49%;
-    }
-
+  .labels{
+    text-align: center;
+  }
 }

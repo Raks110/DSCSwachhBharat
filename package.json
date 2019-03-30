@@ -20,7 +20,11 @@
   },
   "homepage": "https://github.com/Raks110/SwachhBharat#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "crypto": "^1.0.1",
+    "cryptr": "^4.0.2",
     "express": "^4.16.4",
+    "express-session": "^1.15.6",
     "firebase": "^5.9.0",
     "firebase-tools": "^6.5.0"
   }

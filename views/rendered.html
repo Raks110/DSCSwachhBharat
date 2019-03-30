@@ -14,13 +14,61 @@
 
     <div class = "container">
 
-      <div id = "profile">
+      <div id="flexLegend">
+
+        <div id = "profile">
+
+
+          <span id = "closeLegend" style="color:white;font-size:15;margin-top: 10px;top:2%;position:absolute;margin-left:10px" onclick="viewLegend()"><i class="far fa-times-circle"></i>&nbsp&nbsp Close Legend</span>
+
+          <h3 style="color:white">Legend</h3>
+          <hr color="white" style="margin-right:8px"></hr>
+
+          <div id="innerLegend">
+
+            <div id="legend">
+
+              <div style="color:white">
+
+                If you have NOT chosen an option:
+
+                <br/>
+                <br/>
+
+                <span style="padding:0px 9px 0px 9px;border-radius:20px;background-color:white"></span>
+                  &nbsp => Unmarked Question
+                <br/>
+                <br/>
+                <span style="padding:0px 9px 0px 9px;border-radius:20px;background-color:rgb(247, 206, 85)"></span>
+                  &nbsp => Marked for Review
+                <br/>
+                <br/>
+
+                If you have chosen an option:
+
+                <br/>
+                <br/>
+
+                <span style="padding:0px 9px 0px 9px;border-radius:20px;background-color:rgb(83, 172, 83)"></span>
+                  &nbsp => Unmarked Question
+                <br/>
+                <br/>
+                <span style="padding:0px 9px 0px 9px;border-radius:20px;background-color:rgb(143, 61, 143)"></span>
+                  &nbsp => Marked for Review
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
 
       </div>
 
       <div id="parent">
 
-        <button class="questNav" onclick="prevQuestion()"> <i class="fas fa-chevron-circle-left" style="padding-right:10px"></i>Previous</button>
+        <button class="questNav" id="aboveTime" onclick="prevQuestion()"> <i class="fas fa-chevron-circle-left" style="padding-right:10px"></i>Previous</button>
+        <button class="questNav" id="time" onclick="submit()">30:00</button>
 
         <div class="questionBlock">
 
@@ -31,6 +79,12 @@
           <input id = 'option4' class="quizOptions" type = 'button' value = '' onclick="selectedOption(this.id)" onmouseover="hovereffect(this.id)" onmouseout="dehover(this.id)"/>
 
           <div id="markedSymbol"><i class="fas fa-clipboard-check" style="padding-right:10px"></i> This question is marked.</div>
+
+          <br/>
+          <hr></hr>
+
+          <button class="toggle" id="legendViewer" onclick="viewLegend()">View Legend</button>
+          <button class="toggle" id="questionsViewer" onclick="viewQuestion()">View Questions</button>
 
         </div>
 
@@ -44,7 +98,11 @@
       </div>
 
       <div id="flexCont">
+
         <div id="questionPane">
+
+
+          <span id = "closeLegend" style="color:white;font-size:15;margin-top: 10px;top:2%;position:absolute;margin-left:10px" onclick="viewQuestion()"><i class="far fa-times-circle"></i>&nbsp&nbsp Close Questions</span>
 
           <div id="innerPane">
 
@@ -59,47 +117,14 @@
 
           </div>
 
-
-          <h3 style="color:white">Legend</h3>
-          <hr color="white" style="margin-right:8px"></hr>
-
-          <div id="legend">
-
-            <div style="color:white">
-
-              If you have NOT chosen an option:
-
-              <br/>
-              <br/>
-
-              <span style="padding:0px 9px 0px 9px;border-radius:20px;background-color:white"></span>
-                &nbsp => Unmarked Question
-              <br/>
-              <br/>
-              <span style="padding:0px 9px 0px 9px;border-radius:20px;background-color:rgb(247, 206, 85)"></span>
-                &nbsp => Marked for Review
-              <br/>
-              <br/>
-
-              If you have chosen an option:
-
-              <br/>
-              <br/>
-
-              <span style="padding:0px 9px 0px 9px;border-radius:20px;background-color:rgb(83, 172, 83)"></span>
-                &nbsp => Unmarked Question
-              <br/>
-              <br/>
-              <span style="padding:0px 9px 0px 9px;border-radius:20px;background-color:rgb(143, 61, 143)"></span>
-                &nbsp => Marked for Review
-            </div>
-
-          </div>
-
         </div>
       </div>
 
     </div>
+
+    <form action="/done" method="post" id="finalSubmit">
+      <input type="hidden" value="none" name="checked" id="hiddenVal"/>
+    </form>
 
   </body>
 

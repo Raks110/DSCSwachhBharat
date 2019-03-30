@@ -1,4 +1,9 @@
 var questions;
+var i = 1;
+var legendVisible = false;
+var questionsVisible = false;
+var intervalVar;
+var base_url = window.location.origin;
 
 $.ajaxSetup({async:false});
 
@@ -9,10 +14,8 @@ $.get("/getQuests",function(Array) {
 
 function initQuests(){
   for(var i =0;i<questions.length;i++)
-    $("#innerPane").append("<button class='questionBlocks' id=q" + i + " onclick='jumpQuest(this.id)'>" + parseInt(i+1) + "</button>")
+    $("#innerPane").append("<button class='questionBlocks' id=q" + i + " onclick='jumpQuest(this.id)'>" + parseInt(i+1) + "</button>");
 }
-
-var i = 1;
 
 function setData(i){
   document.getElementById('question').innerText = questions[i].title;
@@ -134,4 +137,64 @@ function dehover(id){
 function jumpQuest(id){
   i = parseInt(id.substring(1));
   setData(i);
+}
+
+function viewLegend(){
+  if(!legendVisible){
+    document.getElementById("profile").style.display = "block";
+    document.getElementById("legendViewer").innerText = "Hide Legend"
+    legendVisible = true;
+  }
+  else{
+    document.getElementById("profile").style.display = "none";
+    document.getElementById("legendViewer").innerText = "View Legend"
+    legendVisible = false;
+  }
+}
+
+function viewQuestion(){
+  if(!questionsVisible){
+    document.getElementById("questionPane").style.display = "block";
+    document.getElementById("questionsViewer").innerText = "Hide Questions"
+    questionsVisible = true;
+  }
+  else{
+    document.getElementById("questionPane").style.display = "none";
+    document.getElementById("questionsViewer").innerText = "View Questions"
+    questionsVisible = false;
+  }
+}
+
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        if(minutes == 0 && seconds == 0){
+          submit();
+        }
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+}
+
+window.onload = function () {
+    var thirtyMinutes = 60 * 30,
+    display = document.querySelector('#time');
+    startTimer(thirtyMinutes, display);
+};
+
+function submit(){
+  window.clearInterval(intervalVar);
+  document.getElementById("hiddenVal").value = JSON.stringify(questions);
+  document.getElementById("finalSubmit").submit();
+  //window.location.replace(base_url + "/done");
 }
