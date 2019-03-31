@@ -1,5 +1,6 @@
 var questions;
 var i = 1;
+var previ = i;
 var legendVisible = false;
 var questionsVisible = false;
 var intervalVar;
@@ -9,7 +10,6 @@ $.ajaxSetup({async:false});
 
 $.get("/getQuests",function(Array) {
   questions = Array;
-  console.log(questions);
 })
 
 function initQuests(){
@@ -41,6 +41,13 @@ function setData(i){
   if(questions[i].markedForReview){
     unMarking();
   }
+  if(previ != i){
+    document.getElementById("q" + previ).innerText = parseInt(previ+1);
+    document.getElementById("q" + i).innerText = parseInt(i+1) + "*";
+  }
+  else{
+    document.getElementById("q" + i).innerText = parseInt(i+1) + "*";
+  }
 }
 
 function marking(){
@@ -58,6 +65,7 @@ function unMarking(){
 }
 
 function nextQuestion(){
+  previ = i;
   i++;
   if(i>questions.length - 1){
     i = 0;
@@ -66,6 +74,7 @@ function nextQuestion(){
 }
 
 function prevQuestion(){
+  previ = i;
   i--;
   if(i<0){
     i = questions.length - 1;
@@ -135,21 +144,9 @@ function dehover(id){
 }
 
 function jumpQuest(id){
+  previ = i;
   i = parseInt(id.substring(1));
   setData(i);
-}
-
-function viewLegend(){
-  if(!legendVisible){
-    document.getElementById("profile").style.display = "block";
-    document.getElementById("legendViewer").innerText = "Hide Legend"
-    legendVisible = true;
-  }
-  else{
-    document.getElementById("profile").style.display = "none";
-    document.getElementById("legendViewer").innerText = "View Legend"
-    legendVisible = false;
-  }
 }
 
 function viewQuestion(){
@@ -196,5 +193,4 @@ function submit(){
   window.clearInterval(intervalVar);
   document.getElementById("hiddenVal").value = JSON.stringify(questions);
   document.getElementById("finalSubmit").submit();
-  //window.location.replace(base_url + "/done");
 }

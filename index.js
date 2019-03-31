@@ -45,7 +45,7 @@ function addUser(user){
 }
 
 function addUserLogin(reg,now){
-  firebase.database().ref('userLogin/').push({
+  firebase.database().ref('userLogin/' + reg).set({
     registrationNum:reg,
     timeLogin: now.getTime()
     });
@@ -96,13 +96,24 @@ app.get('/quiz', function (req, res) {
     var ref = database.ref('userScore/' + req.session.userID).once('value').then((snapshot) => {
       users = snapshot.val();
 
-        if(users == null)
-          res.sendFile(path.join(__dirname+'/views/rendered.html'));
-        else{
+        if(users != null){
           req.session.skipGet = users.score;
           req.session.score = req.session.skipGet;
-          console.log(req.session.skipGet);
           res.redirect('/done');
+        }
+        else{
+          var ref = database.ref('userLogin/' + req.session.userID).once('value').then((snapshot) => {
+            users = snapshot.val();
+            if((new Date().getTime() - users.timeLogin)/1000 > 1800){
+                req.session.skipGet = 0;
+                req.session.score = req.session.skipGet;
+                addUserScore(req.session.userID,0);
+                res.redirect('/done');
+            }
+            else{
+                res.sendFile(path.join(__dirname+'/views/rendered.html'));
+            }
+          });
         }
     });
   }
@@ -162,12 +173,20 @@ app.post('/registering',function(req,res) {
 
         var now = new Date();
 
-        addUserLogin(reg,now);
+        var ref = database.ref('userLogin/' + reg).once('value').then((snapshot) => {
+            users = snapshot.val();
 
-        req.session.loggedin = true;
-        req.session.userID = reg;
+            if(users == null){
+              addUserLogin(reg,now);
+            }
 
-        res.redirect('/quiz');
+
+            req.session.loggedin = true;
+            req.session.userID = reg;
+
+            res.redirect('/quiz');
+
+        });
 
       }
       else{
@@ -184,7 +203,6 @@ app.get('/register', function (req, res) {
 });
 
 app.get('/getScore',function(req,res) {
-  console.log("Within: " + req.session.score);
   var score = req.session.score;
   res.send(score.toString());
 })
