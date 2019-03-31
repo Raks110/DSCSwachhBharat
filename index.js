@@ -172,4 +172,4 @@ app.get('/register', function (req, res) {
 
 var port = process.env.PORT;
 
-app.listen(8080);
+app.listen(port);
