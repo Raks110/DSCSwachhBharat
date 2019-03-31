@@ -5,8 +5,6 @@ var firebase = require("firebase");
 const bodyParser = require('body-parser');
 var session = require('express-session');
 
-var regG;
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -97,12 +95,10 @@ app.get('/', function (req, res) {
 
     var ref = database.ref('userScore/' + req.session.userID).once('value').then((snapshot) => {
       users = snapshot.val();
-      console.log(users);
 
         if(users == null)
           res.sendFile(path.join(__dirname+'/views/rendered.html'));
         else{
-          console.log("Redirecting to done.")
           req.session.skipGet = users.score;
           res.redirect('/done');
         }
@@ -114,6 +110,9 @@ app.get('/', function (req, res) {
 app.get('/done',function(req,res){
   if(req.session.skipGet != null){
     res.send("You scored " + req.session.skipGet);
+  }
+  else{
+    res.sendFile(path.join(__dirname+'/views/register.html'));
   }
 })
 
@@ -134,7 +133,7 @@ app.post('/done',function(req,res) {
       }
     }
 
-    addUserScore(regG,score);
+    addUserScore(req.session.userID,score);
 
     res.send("You scored " + score);
 
@@ -145,24 +144,33 @@ app.post('/registering',function(req,res) {
   const email = req.body.email;
   const name = req.body.name;
 
-  regG = reg;
+  var ref = database.ref('users/' + reg).once('value').then((snapshot) => {
+      users = snapshot.val();
+      if(users == null){
+          var user={
+          'name':name,
+          'reg':reg,
+          'email':email,
+          }
 
-  var user={
-    'name':name,
-    'reg':reg,
-    'email':email,
-  }
+        addUser(user);
 
-  addUser(user);
+        var now = new Date();
 
-  var now = new Date();
+        addUserLogin(reg,now);
 
-  addUserLogin(reg,now);
+        req.session.loggedin = true;
+        req.session.userID = reg;
 
-  req.session.loggedin = true;
-  req.session.userID = reg;
+        res.redirect('/');
 
-  res.redirect('/');
+      }
+      else{
+        req.session.loggedin = true;
+        req.session.userID = reg;
+        res.redirect('/');
+      }
+  });
 
 })
 
