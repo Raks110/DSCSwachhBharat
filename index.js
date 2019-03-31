@@ -3,8 +3,6 @@ const app = express();
 const path = require('path');
 var firebase = require("firebase");
 const bodyParser = require('body-parser');
-const Cryptr = require('cryptr');
-const cryptr = new Cryptr('DSC jumped over the brown fox 110');
 var session = require('express-session');
 
 var regG;
@@ -13,6 +11,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(session({ secret: 'DSC jumped over the brown fox', cookie: { maxAge: 60000 }}))
+
 
 var config = {
     apiKey: "AIzaSyABlVTa0CGlNQjM7OQXwj5QlFUYaLvhaMw",
@@ -43,7 +42,6 @@ function addUser(user){
   firebase.database().ref('users/' + user.reg).set({
     registrationNum:user.reg,
     name:user.name,
-    password:user.pass,
     email:user.email
     });
 }
@@ -63,7 +61,7 @@ function addUserScore(reg,score){
     });
 }
 
-var ref = database.ref('questions/').on('value',function(snapshot){
+var ref = database.ref('questions/').once('value').then((snapshot) => {
   questions = snapshot.val();
 });
 
@@ -81,46 +79,47 @@ app.get('/addQuests',function(req,res) {
 });
 
 app.get('/getQuests', function(req,res) {
-  var ref = database.ref('questions/').on('value',function(snapshot){
+  var ref = database.ref('questions/').once('value').then((snapshot) => {
     questions = snapshot.val();
+    res.send(questions);
   });
-  res.send(questions);
 });
 
 app.get('/', function (req, res) {
-  console.log(req.session.loggedin);
-  if(!req.session.loggedin)
-    res.sendFile(path.join(__dirname+'/views/login.html'));
 
-  var ref = database.ref('userScore/' + regG).on('value',function(snapshot){
-    users = snapshot.val();
-    if(users == null)
-      res.sendFile(path.join(__dirname+'/views/rendered.html'));
-    else{
+  res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
-      req.session.loggedin = false;
-      req.session.skipGet = users.score;
+  if(!req.session.loggedin){
+    req.session.destroy();
+    res.sendFile(path.join(__dirname+'/views/register.html'));
+  }
+  else{
 
-      res.writeHead(302 , {
-          'Location' : '/done'
-      });
-      res.end();
-    }
+    var ref = database.ref('userScore/' + req.session.userID).once('value').then((snapshot) => {
+      users = snapshot.val();
+      console.log(users);
 
-  });
+        if(users == null)
+          res.sendFile(path.join(__dirname+'/views/rendered.html'));
+        else{
+          console.log("Redirecting to done.")
+          req.session.skipGet = users.score;
+          res.redirect('/done');
+        }
+    });
+  }
 
 });
 
 app.get('/done',function(req,res){
-    if(req.session.skipGet != null){
-          res.send("You scored " + req.session.skipGet);
-    }
+  if(req.session.skipGet != null){
+    res.send("You scored " + req.session.skipGet);
+  }
 })
 
 app.post('/done',function(req,res) {
 
     const reqJson = req.body.checked;
-    console.log(reqJson);
 
     var score = 0;
 
@@ -141,57 +140,17 @@ app.post('/done',function(req,res) {
 
 })
 
-app.post('/logging', function (req,res) {
-  const reg = req.body.regNum;
-  const pass = req.body.pass;
-
-  regG = reg;
-
-  var users;
-
-  var ref = database.ref('users/' + reg + '/password/').on('value',function(snapshot){
-    users = snapshot.val();
-
-    if(users == null){
-          req.session.loggedin = false;
-    }
-
-    if(pass == cryptr.decrypt(users)){
-      var now = new Date();
-      addUserLogin(reg,now);
-
-      req.session.loggedin = true;
-
-    }
-
-    else{
-      req.session.loggedin = false;
-    }
-
-    res.writeHead(302 , {
-        'Location' : '/'
-    });
-    res.end();
-
-  });
-
-})
-
 app.post('/registering',function(req,res) {
   const reg = req.body.regNum;
-  const pass = req.body.pass;
   const email = req.body.email;
   const name = req.body.name;
 
   regG = reg;
 
-  var encPass = cryptr.encrypt(pass);
-
   var user={
     'name':name,
     'reg':reg,
     'email':email,
-    'pass':encPass
   }
 
   addUser(user);
@@ -201,17 +160,11 @@ app.post('/registering',function(req,res) {
   addUserLogin(reg,now);
 
   req.session.loggedin = true;
+  req.session.userID = reg;
 
-  res.writeHead(302 , {
-           'Location' : '/'
-        });
-  res.end();
+  res.redirect('/');
 
 })
-
-app.get('/login', function (req, res) {
-  res.sendFile(path.join(__dirname+'/views/login.html'));
-});
 
 app.get('/register', function (req, res) {
   res.sendFile(path.join(__dirname+'/views/register.html'));
@@ -219,4 +172,4 @@ app.get('/register', function (req, res) {
 
 var port = process.env.PORT;
 
-app.listen(port);
+app.listen(8080);
