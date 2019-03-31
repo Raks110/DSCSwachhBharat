@@ -83,7 +83,7 @@ app.get('/getQuests', function(req,res) {
   });
 });
 
-app.get('/', function (req, res) {
+app.get('/quiz', function (req, res) {
 
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
@@ -162,13 +162,13 @@ app.post('/registering',function(req,res) {
         req.session.loggedin = true;
         req.session.userID = reg;
 
-        res.redirect('/');
+        res.redirect('/quiz');
 
       }
       else{
         req.session.loggedin = true;
         req.session.userID = reg;
-        res.redirect('/');
+        res.redirect('/quiz');
       }
   });
 
