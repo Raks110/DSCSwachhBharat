@@ -100,6 +100,8 @@ app.get('/quiz', function (req, res) {
           res.sendFile(path.join(__dirname+'/views/rendered.html'));
         else{
           req.session.skipGet = users.score;
+          req.session.score = req.session.skipGet;
+          console.log(req.session.skipGet);
           res.redirect('/done');
         }
     });
@@ -109,7 +111,8 @@ app.get('/quiz', function (req, res) {
 
 app.get('/done',function(req,res){
   if(req.session.skipGet != null){
-    res.send("You scored " + req.session.skipGet);
+    req.session.score = req.session.skipGet;
+    res.sendFile(path.join(__dirname+'/views/done.html'));
   }
   else{
     res.sendFile(path.join(__dirname+'/views/register.html'));
@@ -133,9 +136,11 @@ app.post('/done',function(req,res) {
       }
     }
 
+    req.session.score = score;
+
     addUserScore(req.session.userID,score);
 
-    res.send("You scored " + score);
+    res.sendFile(path.join(__dirname+'/views/done.html'));
 
 })
 
@@ -177,6 +182,12 @@ app.post('/registering',function(req,res) {
 app.get('/register', function (req, res) {
   res.sendFile(path.join(__dirname+'/views/register.html'));
 });
+
+app.get('/getScore',function(req,res) {
+  console.log("Within: " + req.session.score);
+  var score = req.session.score;
+  res.send(score.toString());
+})
 
 var port = process.env.PORT;
 

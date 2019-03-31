@@ -18,6 +18,41 @@ body{
     overflow-x:hidden;
 }
 
+ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
+
+li{
+  display: inline;
+}
+
+a{
+  text-decoration: none;
+  color:white;
+}
+
+img{
+  display: inline;
+  margin-left: 10px;
+}
+
+.navbar{
+  display: flex;
+  background-color: rgba(0,0,0,0.8);
+  border-radius: 20px;
+}
+
+#powered{
+  color:white;
+  right:25px;
+  padding:15px 10px 10px 10px;
+  position: absolute;
+  font-size:15px;
+}
+
 .quizOptions{
   display: block;
   margin-bottom: 10px;
@@ -100,6 +135,12 @@ button{
 
 #flexLegend{
   flex: 1 1 0;
+}
+
+.g-recaptcha {
+  transform: scale(1);
+  transform-origin: 0 0;
+  width:50px;
 }
 
 @media (max-width:750px) {

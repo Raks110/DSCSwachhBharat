@@ -5,9 +5,28 @@
     <link rel="stylesheet" href="/static/login.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
-    <script src="/static/verify_captcha.js"></script>
+    <script src="/static/finally.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <style>
+      td{
+          text-align: center;
+          vertical-align: middle;
+        }
+      .labels{
+        text-align:center;
+      }
+
+      a i{
+        font-size:20px;
+        transition-duration:0.3s;
+      }
+
+      a i:hover{
+        filter:invert(50%);
+      }
+    </style>
 
   </head>
 
@@ -43,32 +62,32 @@
 
           <div class="questionBlock">
 
+
+            <img src="/static/swachhlogo.jpg" style="margin-bottom:20px;width:93%"><br/>
+
             <table width="100%">
 
                 <tr>
-                  <td><div class="labels">Name</div></td>
-                  <td><input type="text" name="name" placeholder="Name" class="quizOptions" required/></td>
+                  <td><div class="labels" id="scoreDis"></div></td>
                 </tr>
                 <tr>
-                  <td><div class="labels">Registration Number</div></td>
-                  <td><input type="text" name="regNum" placeholder="Registration Number" class="quizOptions" required/></td>
+                  <td><div class="labels">Follow us on Social Media</div></td>
                 </tr>
                 <tr>
-                  <td><div class="labels">Email</div></td>
-                  <td><input type="email" name="email" placeholder="Email" class="quizOptions" required/></td>
-                </tr>
-                <!--tr>
-                  <td colspan="2">
-                    <div class="g-recaptcha" id="rcaptcha" data-sitekey="site key"></div>
+                  <td>
+                      <a href="https://www.facebook.com/dscmanipal/"><i class="fab fa-facebook-square"></i></a>&nbsp&nbsp
+                      <a href="https://www.linkedin.com/company/dsc-manipal/"><i class="fab fa-linkedin"></i></a>&nbsp&nbsp
+                      <a href="https://medium.com/dsc-manipal"><i class="fab fa-medium"></i></a>&nbsp&nbsp
+                      <a href="mailto:desc.manipal@gmail.com"><i class="fas fa-envelope"></i></a>&nbsp&nbsp
                   </td>
-                </tr-->
+                </tr>
+                <tr>
+                  <td><div class="labels" style="padding-top:10px">...and don't forget to keep your city clean.</div></td>
+                </tr>
             </table>
-
           </div>
-          <button class="questNav"><i class="fas fa-angle-double-right" style="padding-right:10px"></i>Login</button>
-        
-          <span id="captcha" style="color:red" /></span>
         </form>
+
       </div>
 
       <div id="flexCont">
@@ -79,6 +98,10 @@
         </div>
 
       </div>
+
+            <script>
+              initScore();
+            </script>
 
     </div>
 
