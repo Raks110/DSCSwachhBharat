@@ -4,11 +4,14 @@ const path = require('path');
 var firebase = require("firebase");
 const bodyParser = require('body-parser');
 var session = require('express-session');
+var MemoryStore = require('memorystore')(session)
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(session({ secret: 'DSC jumped over the brown fox', cookie: { maxAge: 60000 }}))
+app.use(session(
+  { secret: "secret", store: new MemoryStore(), expires: new Date(Date.now() + (86400 * 1000))
+  }));
 
 
 var config = {
@@ -64,6 +67,14 @@ var ref = database.ref('questions/').once('value').then((snapshot) => {
 });
 
 app.use('/static', express.static('static'));
+app.use('/assets', express.static('assets'));
+
+app.get('/',function(req,res) {
+  if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+    res.sendFile(path.join(__dirname+'/index.html'));
+  else
+    res.redirect('/register')
+})
 
 app.get('/addQuests',function(req,res) {
 
@@ -87,6 +98,12 @@ app.get('/quiz', function (req, res) {
 
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
+
+  if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+    res.redirect('/');
+
+  else{
+
   if(!req.session.loggedin){
     req.session.destroy();
     res.sendFile(path.join(__dirname+'/views/register.html'));
@@ -104,7 +121,10 @@ app.get('/quiz', function (req, res) {
         else{
           var ref = database.ref('userLogin/' + req.session.userID).once('value').then((snapshot) => {
             users = snapshot.val();
+            req.session.remainingTime = 1800 - ((new Date().getTime() - users.timeLogin)/1000);
             if((new Date().getTime() - users.timeLogin)/1000 > 1800){
+
+                console.log((new Date().getTime() - users.timeLogin)/1000);
                 req.session.skipGet = 0;
                 req.session.score = req.session.skipGet;
                 addUserScore(req.session.userID,0);
@@ -117,10 +137,17 @@ app.get('/quiz', function (req, res) {
         }
     });
   }
+  }
 
 });
 
 app.get('/done',function(req,res){
+
+  if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+    res.redirect('/');
+
+  else{
+
   if(req.session.skipGet != null){
     req.session.score = req.session.skipGet;
     res.sendFile(path.join(__dirname+'/views/done.html'));
@@ -128,10 +155,16 @@ app.get('/done',function(req,res){
   else{
     res.sendFile(path.join(__dirname+'/views/register.html'));
   }
+  }
 })
 
 app.post('/done',function(req,res) {
 
+
+  if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+    res.redirect('/');
+
+  else{
     const reqJson = req.body.checked;
 
     var score = 0;
@@ -152,10 +185,17 @@ app.post('/done',function(req,res) {
     addUserScore(req.session.userID,score);
 
     res.sendFile(path.join(__dirname+'/views/done.html'));
+  }
 
 })
 
 app.post('/registering',function(req,res) {
+
+  if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+    res.redirect('/');
+
+  else{
+
   const reg = req.body.regNum;
   const email = req.body.email;
   const name = req.body.name;
@@ -195,8 +235,9 @@ app.post('/registering',function(req,res) {
         res.redirect('/quiz');
       }
   });
+  }
 
-})
+});
 
 app.get('/register', function (req, res) {
   res.sendFile(path.join(__dirname+'/views/register.html'));
@@ -207,6 +248,11 @@ app.get('/getScore',function(req,res) {
   res.send(score.toString());
 })
 
+app.get('/getTime',function(req,res) {
+  var time = req.session.remainingTime;
+  res.send(time.toString());
+})
+
 var port = process.env.PORT;
 
-app.listen(port);
+app.listen(8080);

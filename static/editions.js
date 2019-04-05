@@ -5,6 +5,7 @@ var legendVisible = false;
 var questionsVisible = false;
 var intervalVar;
 var base_url = window.location.origin;
+var numMinutes;
 
 $.ajaxSetup({async:false});
 
@@ -162,6 +163,14 @@ function viewQuestion(){
   }
 }
 
+$.get("/getTime",function(text) {
+  numMinutes = parseInt(text);
+  if(numMinutes < 0){
+    numMinutes = 0;
+  }
+  console.log(numMinutes);
+})
+
 function startTimer(duration, display) {
     var timer = duration, minutes, seconds;
     setInterval(function () {
@@ -184,9 +193,9 @@ function startTimer(duration, display) {
 }
 
 window.onload = function () {
-    var thirtyMinutes = 60 * 30,
+    var inMinutes = numMinutes;
     display = document.querySelector('#time');
-    startTimer(thirtyMinutes, display);
+    startTimer(inMinutes, display);
 };
 
 function submit(){
