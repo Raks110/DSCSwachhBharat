@@ -108,17 +108,21 @@
 
 @media (min-width: 320px) and (max-width: 540px) {
   .time-countdown .time-entry {
-    width: 100px;
+    width: 150px;
     height: 70px;
   }
   .time-countdown .time-entry span {
     font-size: 30px;
   }
-  .subscribe-form .form-inline .btn {
-    width: 125px;
+}
+
+@media(max-width:370px){
+  .time-countdown .time-entry {
+    width: 100px;
+    height: 70px;
   }
-  .btn {
-    padding: 8px 10px;
-    font-size: 12px;
+  .countdown-timer{
+    top:6%;
   }
+
 }
