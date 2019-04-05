@@ -10,7 +10,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(session(
-  { secret: "secret", store: new MemoryStore(), expires: new Date(Date.now() + (86400 * 1000))
+  { secret: "secret",
+    store: new MemoryStore(),
+    expires: new Date(Date.now() + (30 * 86400 * 1000)),
+    cookie:{
+      maxAge:30*86400*1000
+    }
   }));
 
 
@@ -69,7 +74,15 @@ var ref = database.ref('questions/').once('value').then((snapshot) => {
 app.use('/static', express.static('static'));
 app.use('/assets', express.static('assets'));
 
+app.get('/getLogged',function(req,res){
+  if(req.session.loggedin == true)
+    res.send("true");
+  else
+    res.send("false");
+})
+
 app.get('/',function(req,res) {
+
   if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
     res.sendFile(path.join(__dirname+'/index.html'));
   else
@@ -191,11 +204,6 @@ app.post('/done',function(req,res) {
 
 app.post('/registering',function(req,res) {
 
-  if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
-    res.redirect('/');
-
-  else{
-
   const reg = req.body.regNum;
   const email = req.body.email;
   const name = req.body.name;
@@ -224,7 +232,11 @@ app.post('/registering',function(req,res) {
             req.session.loggedin = true;
             req.session.userID = reg;
 
-            res.redirect('/quiz');
+
+            if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+              res.redirect('/');
+            else
+              res.redirect('/quiz');
 
         });
 
@@ -232,15 +244,21 @@ app.post('/registering',function(req,res) {
       else{
         req.session.loggedin = true;
         req.session.userID = reg;
-        res.redirect('/quiz');
+        if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+          res.redirect('/');
+        else
+          res.redirect('/quiz');
       }
   });
-  }
+
 
 });
 
 app.get('/register', function (req, res) {
-  res.sendFile(path.join(__dirname+'/views/register.html'));
+  if(req.session.loggedin)
+    res.direct("/quiz");
+  else
+    res.sendFile(path.join(__dirname+'/views/register.html'));
 });
 
 app.get('/getScore',function(req,res) {

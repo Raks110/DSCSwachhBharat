@@ -1,10 +1,28 @@
+window.onload = function(){
+
+  var logged;
+
+  $.ajaxSetup({async:false});
+
+  $.get("/getLogged",function(text) {
+    logged = text;
+  })
+
+  if(logged == "true"){
+    if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+      document.getElementById("RegisterDSCManipal").style.display = "none";
+    else
+      document.getElementById("RegisterDSCManipal").innerText = "Start Quiz";
+  }
+}
+
 (function($) {
 
   "use strict";
 
   $(window).on('load', function() {
 
-    
+
 
      /* Page Loader active
     ========================================================*/
@@ -24,7 +42,7 @@
     /* ==========================================================================
     countdown timer
     ========================================================================== */
-     jQuery('#clock').countdown('2019/04/14',function(event){
+     jQuery('#clock').countdown('2019/04/14 13:00',function(event){
       var $this=jQuery(this).html(event.strftime(''
       +'<div class="time-entry days"><span>%-D</span> Days</div> '
       +'<div class="time-entry hours"><span>%H</span> Hours</div> '
