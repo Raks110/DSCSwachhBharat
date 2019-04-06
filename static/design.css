@@ -236,6 +236,10 @@ button{
     width: 49%;
   }
 
+  #confEnd,#confCont{
+    width: 99%;
+  }
+
   #flexCont{
     flex: 0 0 0;
   }

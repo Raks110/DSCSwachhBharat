@@ -215,7 +215,7 @@ function submit(){
 
 }
 
-/*$(window).on('focus', function () {
+$(window).on('focus', function () {
 
   window.clearInterval(intervalVar);
   document.getElementById("hiddenVal").value = JSON.stringify(questions);
@@ -227,4 +227,4 @@ $(window).on('blur', function () {
   window.clearInterval(intervalVar);
   document.getElementById("hiddenVal").value = JSON.stringify(questions);
   document.getElementById("finalSubmit").submit();
-});*/
+});

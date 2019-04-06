@@ -112,10 +112,10 @@ app.get('/quiz', function (req, res) {
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
 
-  //if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
-  //  res.redirect('/');
+  if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+    res.redirect('/');
 
-  //else{
+  else{
 
   if(!req.session.loggedin){
     req.session.destroy();
@@ -150,16 +150,16 @@ app.get('/quiz', function (req, res) {
         }
     });
   }
-  //}
+  }
 
 });
 
 app.get('/done',function(req,res){
 
-  //if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
-  //  res.redirect('/');
+  if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+    res.redirect('/');
 
-  //else{
+  else{
 
   if(req.session.skipGet != null){
     req.session.score = req.session.skipGet;
@@ -168,16 +168,16 @@ app.get('/done',function(req,res){
   else{
     res.sendFile(path.join(__dirname+'/views/register.html'));
   }
-  //}
+  }
 })
 
 app.post('/done',function(req,res) {
 
 
-  //if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
-  //  res.redirect('/');
+  if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+    res.redirect('/');
 
-  //else{
+  else{
     const reqJson = req.body.checked;
 
     var score = 0;
@@ -198,7 +198,7 @@ app.post('/done',function(req,res) {
     addUserScore(req.session.userID,score);
 
     res.sendFile(path.join(__dirname+'/views/done.html'));
-  //}
+  }
 
 })
 
@@ -225,7 +225,7 @@ app.post('/registering',function(req,res) {
             users = snapshot.val();
 
             if(users == null){
-              //if(new Date().getTime() - new Date("April 14 2019 13:00") >= 0)
+              if(new Date().getTime() - new Date("April 14 2019 13:00") >= 0)
                 addUserLogin(reg,now);
             }
 
@@ -234,9 +234,9 @@ app.post('/registering',function(req,res) {
             req.session.userID = reg;
 
 
-            //if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
-            //  res.redirect('/');
-            //else
+            if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+              res.redirect('/');
+            else
               res.redirect('/quiz');
 
         });
@@ -245,9 +245,9 @@ app.post('/registering',function(req,res) {
       else{
         req.session.loggedin = true;
         req.session.userID = reg;
-        //if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
-        //  res.redirect('/');
-        //else
+        if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+          res.redirect('/');
+        else
           res.redirect('/quiz');
       }
   });
@@ -274,4 +274,4 @@ app.get('/getTime',function(req,res) {
 
 var port = process.env.PORT;
 
-app.listen(port);
+app.listen(8080);
