@@ -14,7 +14,8 @@ body{
     hsla(35, 91%, 65%, 0) 80px, hsla(35, 91%, 65%, 0) 90px, hsla(5, 53%, 63%, 0.5) 90px, hsla(5, 53%, 63%, 0.5) 110px,
     hsla(5, 53%, 63%, 0) 110px, hsla(5, 53%, 63%, 0) 140px, hsla(197, 62%, 11%, 0.5) 140px, hsla(197, 62%, 11%, 0.5) 160px
     );*/
-    background-image: url("/assets/img/slide3.jpg");
+    background-image: url("/assets/img/regback.jpg");
+    background-size: cover;
     overflow-x: -moz-scrollbars-vertical;
     overflow-x:hidden;
 }

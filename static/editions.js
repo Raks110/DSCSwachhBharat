@@ -199,15 +199,32 @@ window.onload = function () {
 };
 
 function submit(){
+
+  document.getElementById("endQuizDiv").style.display = "block";
+  document.getElementById("confEnd").addEventListener("click",function(){
+      window.clearInterval(intervalVar);
+      document.getElementById("hiddenVal").value = JSON.stringify(questions);
+      document.getElementById("finalSubmit").submit();
+  });
+
+
+  document.getElementById("confCont").addEventListener("click",function(){
+      document.getElementById("endQuizDiv").style.display = "none";
+  });
+
+
+}
+
+/*$(window).on('focus', function () {
+
   window.clearInterval(intervalVar);
   document.getElementById("hiddenVal").value = JSON.stringify(questions);
   document.getElementById("finalSubmit").submit();
-}
-
-$(window).on('focus', function () {
-  submit();
 });
 
 $(window).on('blur', function () {
-  submit();
-});
+
+  window.clearInterval(intervalVar);
+  document.getElementById("hiddenVal").value = JSON.stringify(questions);
+  document.getElementById("finalSubmit").submit();
+});*/

@@ -112,10 +112,10 @@ app.get('/quiz', function (req, res) {
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
 
-  if(new Date().getTime() - new Date("April 1 2019 13:00") < 0)
-    res.redirect('/');
+  //if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+  //  res.redirect('/');
 
-  else{
+  //else{
 
   if(!req.session.loggedin){
     req.session.destroy();
@@ -150,7 +150,7 @@ app.get('/quiz', function (req, res) {
         }
     });
   }
-  }
+  //}
 
 });
 

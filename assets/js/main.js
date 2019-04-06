@@ -9,7 +9,7 @@ window.onload = function(){
   })
 
   if(logged == "true"){
-    if(new Date().getTime() - new Date("April 1 2019 13:00") < 0)
+    if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
       document.getElementById("RegisterDSCManipal").style.display = "none";
     else
       document.getElementById("RegisterDSCManipal").innerText = "Start Quiz";
