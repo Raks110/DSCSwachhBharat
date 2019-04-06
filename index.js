@@ -48,7 +48,8 @@ function addUser(user){
   firebase.database().ref('users/' + user.reg).set({
     registrationNum:user.reg,
     name:user.name,
-    email:user.email
+    email:user.email,
+    phone:user.phone
     });
 }
 
@@ -207,6 +208,7 @@ app.post('/registering',function(req,res) {
   const reg = req.body.regNum;
   const email = req.body.email;
   const name = req.body.name;
+  const phone = req.body.phone;
 
   var ref = database.ref('users/' + reg).once('value').then((snapshot) => {
       users = snapshot.val();
@@ -215,6 +217,7 @@ app.post('/registering',function(req,res) {
           'name':name,
           'reg':reg,
           'email':email,
+          'phone':phone
           }
 
         addUser(user);
@@ -274,4 +277,4 @@ app.get('/getTime',function(req,res) {
 
 var port = process.env.PORT;
 
-app.listen(8080);
+app.listen(port);

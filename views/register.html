@@ -51,11 +51,15 @@
                 </tr>
                 <tr>
                   <td><div class="labels">Registration Number</div></td>
-                  <td><input type="text" name="regNum" placeholder="Registration Number" class="quizOptions" minlength="9" maxlength="9" pattern="^15|16|17|18+[0-9]+$" title="Enter a valid registration number." required/></td>
+                  <td><input type="text" name="regNum" placeholder="Registration Number" class="quizOptions" minlength="9" maxlength="9" pattern="^(15|16|17|18)[0-9]{7}$" required/></td>
                 </tr>
                 <tr>
                   <td><div class="labels">Email</div></td>
                   <td><input type="email" name="email" placeholder="Email" class="quizOptions" required/></td>
+                </tr>
+                <tr>
+                  <td><div class="labels">Phone Number</div></td>
+                  <td><input type="number" name="phone" placeholder="Phone" class="quizOptions" required/></td>
                 </tr>
                 <!--tr>
                   <td colspan="2">
@@ -65,7 +69,8 @@
             </table>
 
           </div>
-          <button class="questNav"><i class="fas fa-angle-double-right" style="padding-right:10px"></i>Login</button>
+
+          <button class="questNav" id="continueLog"><i class="fas fa-angle-double-right" style="padding-right:10px"></i>Login</button>
 
           <span id="captcha" style="color:red" /></span>
         </form>
@@ -81,6 +86,16 @@
       </div>
 
     </div>
+
+    <div id="endQuizDiv">
+      Please ensure you don't click on anything outside the webpage while you are giving the quiz. If you click anywhere outside the webpage (that includes even your browser icons, your status bar etc.) In case you do end up clicking anywhere else, the quiz will instantly get submitted.<br>
+      <p>You can mark questions for review while answering the quiz.</p>
+      <p>By clicking on "View Questions" tab, you can jump across questions, see which questions you haven't visited, see which questions you have marked for review etc.</p>
+      <p>Hope you have a great time giving this quiz! To proceed with your login, please accept the conditions.</p>
+      <button class="questNav" id="accept">Accept Conditions</button><br>
+      <button class="questNav" id="reject">Reject and Go Back</button>
+    </div>
+
 
   </body>
 

@@ -41,6 +41,19 @@ img{
   margin-left: 10px;
 }
 
+#endQuizDiv{
+  background-color: rgba(0,0,0,0.9);
+  width: 85%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  color: white;
+  text-align: center;
+  padding: 100px;
+}
+
 .navbar{
   display: flex;
   background-color: rgba(0,0,0,0.8);
@@ -176,5 +189,9 @@ button{
   .labels{
     text-align: center;
     padding-top: 10px;
+  }
+  #endQuizDiv{
+    padding:35px 5px 5px 5px;
+    width: 99%
   }
 }

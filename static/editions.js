@@ -192,7 +192,36 @@ function startTimer(duration, display) {
     }, 1000);
 }
 
+var elem = document.documentElement;
+
+function openFullscreen() {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.mozRequestFullScreen) { /* Firefox */
+    elem.mozRequestFullScreen();
+  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE/Edge */
+    elem.msRequestFullscreen();
+  }
+}
+
+function closeFullscreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.mozCancelFullScreen) { /* Firefox */
+    document.mozCancelFullScreen();
+  } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) { /* IE/Edge */
+    document.msExitFullscreen();
+  }
+}
+
 window.onload = function () {
+
+    openFullscreen();
+
     var inMinutes = numMinutes;
     display = document.querySelector('#time');
     startTimer(inMinutes, display);
@@ -205,6 +234,7 @@ function submit(){
       window.clearInterval(intervalVar);
       document.getElementById("hiddenVal").value = JSON.stringify(questions);
       document.getElementById("finalSubmit").submit();
+      closeFullscreen();
   });
 
 
@@ -220,6 +250,8 @@ $(window).on('focus', function () {
   window.clearInterval(intervalVar);
   document.getElementById("hiddenVal").value = JSON.stringify(questions);
   document.getElementById("finalSubmit").submit();
+  closeFullscreen();
+
 });
 
 $(window).on('blur', function () {
@@ -227,4 +259,6 @@ $(window).on('blur', function () {
   window.clearInterval(intervalVar);
   document.getElementById("hiddenVal").value = JSON.stringify(questions);
   document.getElementById("finalSubmit").submit();
+  closeFullscreen();
+  
 });
