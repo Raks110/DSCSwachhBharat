@@ -10,6 +10,14 @@ var answers = [
   'option2',
   'option4',
   'option1',
+  'option1',
+  'option2',
+  'option1',
+  'option4',
+  'option2',
+  'option3',
+  'option4',
+  'option1',
   'option3'
 ]
 

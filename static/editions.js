@@ -203,3 +203,11 @@ function submit(){
   document.getElementById("hiddenVal").value = JSON.stringify(questions);
   document.getElementById("finalSubmit").submit();
 }
+
+$(window).on('focus', function () {
+  submit();
+});
+
+$(window).on('blur', function () {
+  submit();
+});

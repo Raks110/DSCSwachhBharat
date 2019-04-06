@@ -80,7 +80,7 @@ var questions = [
     'visited':false
   },
   {
-    'title':'9. Which program was the successor of Total Sanition Program?',
+    'title':'9. Which program was the successor of Total Sanitation Program?',
     'option1':'Swachhta Kadam',
     'option2':'Nirmal Bharat Abhiyan',
     'option3':'Rigorous Sanitary Movement',
@@ -90,7 +90,7 @@ var questions = [
     'visited':false
   },
   {
-    'title':'10. Which Department\'s Secretary coordinates Swachh Bharat Abhiyan?',
+    'title':'10. Which ministry initiated the Swachh Bharat Abhiyan?',
     'option1':'Ministry of Rural Development',
     'option2':'Department of Safety',
     'option3':'Ministry of Human Hygiene',
@@ -105,6 +105,96 @@ var questions = [
     'option2':'Free of Open Defecation by 2040',
     'option3':'HDI up to 7 by 2019',
     'option4':'Toilet built into every home by 2020',
+    'markedForReview':false,
+    'checked':false,
+    'visited':false
+  },
+  {
+    'title':'12. How much money has been allocated by center for the SBM (Urban)?',
+    'option1':'Rs. 14,623 crores',
+    'option2':'Rs. 15,000 crores',
+    'option3':'Rs. 10,231 crores',
+    'option4':'Rs. 12,300 crores',
+    'markedForReview':false,
+    'checked':false,
+    'visited':false
+  },
+  {
+    'title':'13. How much money has been allocated for solid waste management under SBM (urban)?',
+    'option1':'Rs. 7121 crores',
+    'option2':'Rs. 7366 crores',
+    'option3':'Rs. 7900 crores',
+    'option4':'Rs. 7961 crores',
+    'markedForReview':false,
+    'checked':false,
+    'visited':false
+  },
+  {
+    'title':'14. Who composed the audio track "Swachh Bharat ka Irada Karliya hum ne"?',
+    'option1':'Prasoon Joshi',
+    'option2':'Namak Agarwal',
+    'option3':'Mika',
+    'option4':'Mohit Rastogi',
+    'markedForReview':false,
+    'checked':false,
+    'visited':false
+  },
+  {
+    'title':'15. Who designed the logo of Swachh Bharat Abhiyan?',
+    'option1':'Arijit from West Bengal',
+    'option2':'Meenakshi from Tamil Nadu',
+    'option3':'Ravinder from Punjab',
+    'option4':'Anant from Maharashtra',
+    'markedForReview':false,
+    'checked':false,
+    'visited':false
+  },
+  {
+    'title':'16. Which is the twitter hashtag for Swachh Bharat Mission?',
+    'option1':'#MyIncredibleIndia',
+    'option2':'#MyCleanIndia',
+    'option3':'#MyVibrantIndia',
+    'option4':'#MyIndiaCleanIndia',
+    'markedForReview':false,
+    'checked':false,
+    'visited':false
+  },
+  {
+    'title':'17. Which mission did Maneka Sanjay Gandhi launch on 14th Nov, 2014?',
+    'option1':'Nari Swachhta Mission',
+    'option2':'Grameen Swachhta Mission',
+    'option3':'National Bal Swachhta Mission',
+    'option4':'National Women Upliftment Mission',
+    'markedForReview':false,
+    'checked':false,
+    'visited':false
+  },
+  {
+    'title':'18. When did the Central Rural Sanitation Program (CRSP) begin?',
+    'option1':'1995',
+    'option2':'1974',
+    'option3':'1981',
+    'option4':'1986',
+    'markedForReview':false,
+    'checked':false,
+    'visited':false
+  },
+  {
+    'title':'19. What is the full form of SLF?',
+    'option1':'Sanitary Landfills',
+    'option2':'Sanitary Load Facility',
+    'option3':'Sanitary Leaflets',
+    'option4':'Sanitary Local Facility',
+    'markedForReview':false,
+    'checked':false,
+    'visited':false
+  },
+  {
+    'title':'20. On which date does India observe World Toilet Day?',
+    'option1':'October 2',
+    'option2':'November 29',
+    'option3':'September 15',
+    'option4':'December 26',
     'markedForReview':false,
     'checked':false,
     'visited':false
