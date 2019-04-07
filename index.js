@@ -249,6 +249,8 @@ app.post('/registering',function(req,res) {
                 points:pointsRef
               });
             })
+
+            points = points + 1;
   }
 
   var ref = database.ref('users/' + reg).once('value').then((snapshot) => {
