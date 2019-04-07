@@ -250,21 +250,6 @@ app.post('/registering',function(req,res) {
             var ref = database.ref('users/' + referral).once('value').then((snapshot) => {
               users = snapshot.val();
               if(users != null){
-                var mailOptions = {
-                from: 'dscmanipal.mit@gmail.com',
-                to: users.email,
-                subject: 'New Referral just signed up!',
-                text: name + " just signed up using your referral, and here's your referral point! You now have " + pointsRef + " referral points. Keep referring and stay ahead of your game! Your referral code is " + users.reg + "."
-                };
-
-                transporter.sendMail(mailOptions, function(error, info){
-                  if (error) {
-                    console.log(error);
-                  } else {
-                    console.log('Email sent: ' + info.response);
-                  }
-                });
-
               var pointsRef = users.points + 1;
               var ref = database.ref('users/' + referral).set({
                 registrationNum:users.registrationNum,
@@ -276,6 +261,21 @@ app.post('/registering',function(req,res) {
                 referral:users.referral,
                 points:pointsRef
               });
+
+                var mailOptions = {
+                from: 'dscmanipal.mit@gmail.com',
+                to: users.email,
+                subject: 'New Referral just signed up!',
+                text: name + " just signed up using your referral, and here's your referral point! You now have " + pointsRef + " referral points. Keep referring and stay ahead of your game! Your referral code is " + users.registrationNum + "."
+                };
+
+                transporter.sendMail(mailOptions, function(error, info){
+                  if (error) {
+                    console.log(error);
+                  } else {
+                    console.log('Email sent: ' + info.response);
+                  }
+                });
 
                 points = points + 1;
               }
