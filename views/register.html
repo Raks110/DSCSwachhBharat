@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Swachh Bharat</title>
+    <title>Register</title>
     <link rel="icon" href="/static/favicon.ico">
     <link rel="stylesheet" href="/static/login.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -39,6 +39,8 @@
 
       <div id="parent">
 
+        <button class="questNav" id="logCont" style="white-space:normal" onclick="location.href='/login';">Registered already? Login here.</button>
+
         <form action="/registering" method="post" id="regForm">
 
           <div class="questionBlock">
@@ -59,20 +61,24 @@
                 </tr>
                 <tr>
                   <td><div class="labels">Phone Number</div></td>
-                  <td><input type="number" name="phone" placeholder="Phone" class="quizOptions" required/></td>
+                  <td><input type="number" name="phone" placeholder="Phone" class="quizOptions" minlength="10" maxlength="10" required/></td>
                 </tr>
-                <!--tr>
-                  <td colspan="2">
-                    <div class="g-recaptcha" id="rcaptcha" data-sitekey="site key"></div>
+                <tr>
+                  <td><div class="labels">Password</div></td>
+                  <td><input type="password" name="pass" placeholder="Password" class="quizOptions" required/></td>
+                </tr>
+                <tr>
+                  <td colspan = "2" style="padding-top:10px">
+                    <input type="checkbox" name="subscribe" checked/>
+                    <div class="labels" style="display:inline"> Subscribe to DSC Emails</div>
                   </td>
-                </tr-->
+                </tr>
             </table>
 
           </div>
 
-          <button class="questNav" id="continueLog"><i class="fas fa-angle-double-right" style="padding-right:10px"></i>Login</button>
+          <button class="questNav" id="continueLog"><i class="fas fa-angle-double-right" style="padding-right:10px"></i>Register</button>
 
-          <span id="captcha" style="color:red" /></span>
         </form>
       </div>
 

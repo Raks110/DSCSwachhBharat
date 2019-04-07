@@ -49,7 +49,9 @@ function addUser(user){
     registrationNum:user.reg,
     name:user.name,
     email:user.email,
-    phone:user.phone
+    phone:user.phone,
+    password:user.password,
+    subscribed:user.subscribed
     });
 }
 
@@ -209,6 +211,8 @@ app.post('/registering',function(req,res) {
   const email = req.body.email;
   const name = req.body.name;
   const phone = req.body.phone;
+  const password = req.body.pass;
+  const subscribed = req.body.subscribe;
 
   var ref = database.ref('users/' + reg).once('value').then((snapshot) => {
       users = snapshot.val();
@@ -217,7 +221,9 @@ app.post('/registering',function(req,res) {
           'name':name,
           'reg':reg,
           'email':email,
-          'phone':phone
+          'phone':phone,
+          'password':password,
+          'subscribed':subscribed
           }
 
         addUser(user);
@@ -258,11 +264,71 @@ app.post('/registering',function(req,res) {
 
 });
 
+app.post('/logging',function(req,res) {
+
+  const reg = req.body.regNum;
+  const password = req.body.pass;
+
+  var ref = database.ref('users/' + reg).once('value').then((snapshot) => {
+      users = snapshot.val();
+      if(users == null){
+          res.redirect('/');
+      }
+      else{
+        if(users.password != password){
+          req.session.mismatch = true;
+          res.redirect('/login');
+        }
+        else{
+
+          var now = new Date();
+
+          var ref = database.ref('userLogin/' + reg).once('value').then((snapshot) => {
+              users = snapshot.val();
+
+              if(users == null){
+                if(new Date().getTime() - new Date("April 14 2019 13:00") >= 0)
+                  addUserLogin(reg,now);
+              }
+
+
+              req.session.loggedin = true;
+              req.session.userID = reg;
+
+
+              if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+                res.redirect('/');
+              else
+                res.redirect('/quiz');
+
+          });
+        }
+      }
+  });
+
+
+});
+
+app.get('/mismatch',function(req,res) {
+  if(req.session.mismatch)
+    res.send('true');
+  else
+    res.send('false');
+});
+
+
 app.get('/register', function (req, res) {
   if(req.session.loggedin)
     res.redirect("/quiz");
   else
     res.sendFile(path.join(__dirname+'/views/register.html'));
+});
+
+app.get('/login', function (req, res) {
+  if(req.session.loggedin)
+    res.redirect("/quiz");
+  else
+    res.sendFile(path.join(__dirname+'/views/login.html'));
 });
 
 app.get('/getScore',function(req,res) {
