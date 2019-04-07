@@ -4,15 +4,16 @@ window.onload = function(){
 
   $.ajaxSetup({async:false});
 
-  $.get("/getLogged",function(text) {
-    logged = text;
+  $.get("/getLogged",function(Array) {
+    logged = Array;
   })
 
-  if(logged == "true"){
+  if(logged[0] != "false"){
     if(new Date().getTime() - new Date("April 14 2019 14:00") < 0)
       document.getElementById("RegisterDSCManipal").style.display = "none";
     else
       document.getElementById("RegisterDSCManipal").innerText = "Start Quiz";
+    document.getElementById("referral").innerText = "You have scored " + logged[0] + " points through referrals. Your referral code is " + logged[1] + ". Share this with your friends to earn more points!";
   }
 }
 

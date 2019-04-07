@@ -51,7 +51,9 @@ function addUser(user){
     email:user.email,
     phone:user.phone,
     password:user.password,
-    subscribed:user.subscribed
+    subscribed:user.subscribed,
+    referral:user.referral,
+    points:user.points
     });
 }
 
@@ -78,10 +80,22 @@ app.use('/static', express.static('static'));
 app.use('/assets', express.static('assets'));
 
 app.get('/getLogged',function(req,res){
-  if(req.session.loggedin == true)
-    res.send("true");
-  else
-    res.send("false");
+
+  if(req.session.loggedin == true){
+    var ref = database.ref('users/' + req.session.userID).once('value').then((snapshot) => {
+      users = snapshot.val();
+      var data = [];
+      data.push(users.points);
+      data.push(users.registrationNum);
+      res.send(data);
+    });
+  }
+  else{
+    var data = [];
+    data.push("false");
+    data.push(0);
+    res.send(data);
+  }
 })
 
 app.get('/',function(req,res) {
@@ -213,6 +227,29 @@ app.post('/registering',function(req,res) {
   const phone = req.body.phone;
   const password = req.body.pass;
   const subscribed = req.body.subscribe;
+  const referral = req.body.ref;
+  const points = 0;
+
+  if(referral == ""){
+    referral = "Not Applied.";
+  }
+  else{
+
+            var ref = database.ref('users/' + referral).once('value').then((snapshot) => {
+              users = snapshot.val();
+              var pointsRef = users.points + 1;
+              var ref = database.ref('users/' + referral).set({
+                registrationNum:users.registrationNum,
+                name:users.name,
+                email:users.email,
+                phone:users.phone,
+                password:users.password,
+                subscribed:users.subscribed,
+                referral:users.referral,
+                points:pointsRef
+              });
+            })
+  }
 
   var ref = database.ref('users/' + reg).once('value').then((snapshot) => {
       users = snapshot.val();
@@ -223,7 +260,9 @@ app.post('/registering',function(req,res) {
           'email':email,
           'phone':phone,
           'password':password,
-          'subscribed':subscribed
+          'subscribed':subscribed,
+          'referral':referral,
+          'points':points
           }
 
         addUser(user);
