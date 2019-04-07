@@ -235,9 +235,12 @@ app.post('/registering',function(req,res) {
   const name = req.body.name;
   const phone = req.body.phone;
   const password = req.body.pass;
-  const subscribed = req.body.subscribe;
+  var subscribed = req.body.subscribe;
   var referral = req.body.ref;
   const points = 0;
+
+  if(subscribed != "on")
+    subscribed = "off";
 
   if(referral == ""){
     referral = "Not Applied.";
