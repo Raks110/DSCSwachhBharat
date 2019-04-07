@@ -160,8 +160,8 @@ app.get('/quiz', function (req, res) {
         else{
           var ref = database.ref('userLogin/' + req.session.userID).once('value').then((snapshot) => {
             users = snapshot.val();
-            req.session.remainingTime = 600 - ((new Date().getTime() - users.timeLogin)/1000);
-            if((new Date().getTime() - users.timeLogin)/1000 > 600){
+            req.session.remainingTime = 900 - ((new Date().getTime() - users.timeLogin)/1000);
+            if((new Date().getTime() - users.timeLogin)/1000 > 900){
 
                 console.log((new Date().getTime() - users.timeLogin)/1000);
                 req.session.skipGet = 0;
@@ -239,114 +239,109 @@ app.post('/registering',function(req,res) {
   var referral = req.body.ref;
   var points = 0;
 
-  if(subscribed != "on")
-    subscribed = "off";
-
-  if(referral == ""){
-    referral = "Not Applied.";
-  }
-  else{
-
-            var ref = database.ref('users/' + referral).once('value').then((snapshot) => {
-              users = snapshot.val();
-              if(users != null){
-              var pointsRef = users.points + 1;
-              var ref = database.ref('users/' + referral).set({
-                registrationNum:users.registrationNum,
-                name:users.name,
-                email:users.email,
-                phone:users.phone,
-                password:users.password,
-                subscribed:users.subscribed,
-                referral:users.referral,
-                points:pointsRef
-              });
-
-                var mailOptions = {
-                from: 'dscmanipal.mit@gmail.com',
-                to: users.email,
-                subject: 'New Referral just signed up!',
-                text: name + " just signed up using your referral, and here's your referral point! You now have " + pointsRef + " referral points. Keep referring and stay ahead of your game! Your referral code is " + users.registrationNum + "."
-                };
-
-                transporter.sendMail(mailOptions, function(error, info){
-                  if (error) {
-                    console.log(error);
-                  } else {
-                    console.log('Email sent: ' + info.response);
-                  }
-                });
-                var mailOptions = {
-                from: 'dscmanipal.mit@gmail.com',
-                to: email,
-                subject: 'You signed up with a referral!',
-                text: "Thanks for signing up, " + name+"! You signed up using " + users.name + "'s referral. You earned 1 referral point. Keep referring and stay ahead of the race! Your referral code is " + reg + "."
-                };
-
-                transporter.sendMail(mailOptions, function(error, info){
-                  if (error) {
-                    console.log(error);
-                  } else {
-                    console.log('Email sent: ' + info.response);
-                  }
-                });
-
-                points = points + 1;
-              }
-            })
-
-  }
-
   var ref = database.ref('users/' + reg).once('value').then((snapshot) => {
       users = snapshot.val();
       if(users == null){
-          var user={
-          'name':name,
-          'reg':reg,
-          'email':email,
-          'phone':phone,
-          'password':password,
-          'subscribed':subscribed,
-          'referral':referral,
-          'points':points
+        if(subscribed != "on")
+          subscribed = "off";
+
+        if(referral == ""){
+          referral = "Not Applied.";
+        }
+        else{
+                  if(referral != reg){
+                  var ref = database.ref('users/' + referral).once('value').then((snapshot) => {
+                    users = snapshot.val();
+                    if(users != null){
+                    var pointsRef = users.points + 1;
+                    var ref = database.ref('users/' + referral).set({
+                      registrationNum:users.registrationNum,
+                      name:users.name,
+                      email:users.email,
+                      phone:users.phone,
+                      password:users.password,
+                      subscribed:users.subscribed,
+                      referral:users.referral,
+                      points:pointsRef
+                    });
+
+                      var mailOptions = {
+                      from: 'dscmanipal.mit@gmail.com',
+                      to: users.email,
+                      subject: 'New Referral just signed up!',
+                      text: name + " just signed up using your referral, and here's your referral point! You now have " + pointsRef + " referral points. Keep referring and stay ahead of your game! Your referral code is " + users.registrationNum + "."
+                      };
+
+                      transporter.sendMail(mailOptions, function(error, info){
+                        if (error) {
+                          console.log(error);
+                        } else {
+                          console.log('Email sent: ' + info.response);
+                        }
+                      });
+                      var mailOptions = {
+                      from: 'dscmanipal.mit@gmail.com',
+                      to: email,
+                      subject: 'You signed up with a referral!',
+                      text: "Thanks for signing up, " + name+"! You signed up using " + users.name + "'s referral. You earned 1 referral point. Keep referring and stay ahead of the race! Your referral code is " + reg + "."
+                      };
+
+                      transporter.sendMail(mailOptions, function(error, info){
+                        if (error) {
+                          console.log(error);
+                        } else {
+                          console.log('Email sent: ' + info.response);
+                        }
+                      });
+
+                      points = points + 1;
+                    }
+                  })
+                }
+
+        }
+
+        var user={
+        'name':name,
+        'reg':reg,
+        'email':email,
+        'phone':phone,
+        'password':password,
+        'subscribed':subscribed,
+        'referral':referral,
+        'points':points
+        }
+
+      addUser(user);
+
+
+      var now = new Date();
+
+      var ref = database.ref('userLogin/' + reg).once('value').then((snapshot) => {
+          users = snapshot.val();
+
+          if(users == null){
+            if(new Date().getTime() - new Date("April 14 2019 13:00") >= 0)
+              addUserLogin(reg,now);
           }
 
-        addUser(user);
+
+          req.session.loggedin = true;
+          req.session.userID = reg;
 
 
-        var now = new Date();
+          if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+            res.redirect('/');
+          else
+            res.redirect('/quiz');
 
-        var ref = database.ref('userLogin/' + reg).once('value').then((snapshot) => {
-            users = snapshot.val();
-
-            if(users == null){
-              if(new Date().getTime() - new Date("April 14 2019 13:00") >= 0)
-                addUserLogin(reg,now);
-            }
-
-
-            req.session.loggedin = true;
-            req.session.userID = reg;
-
-
-            if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
-              res.redirect('/');
-            else
-              res.redirect('/quiz');
-
-        });
+      });
 
       }
       else{
-        req.session.loggedin = true;
-        req.session.userID = reg;
-        if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
-          res.redirect('/');
-        else
-          res.redirect('/quiz');
+        res.redirect('/login')
       }
   });
-
 
 });
 
