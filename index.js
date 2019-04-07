@@ -276,6 +276,20 @@ app.post('/registering',function(req,res) {
                     console.log('Email sent: ' + info.response);
                   }
                 });
+                var mailOptions = {
+                from: 'dscmanipal.mit@gmail.com',
+                to: email,
+                subject: 'You signed up with a referral!',
+                text: "Thanks for signing up, " + name+"! You signed up using " + users.name + "'s referral. You earned 1 referral point. Keep referring and stay ahead of the race! Your referral code is " + reg + "."
+                };
+
+                transporter.sendMail(mailOptions, function(error, info){
+                  if (error) {
+                    console.log(error);
+                  } else {
+                    console.log('Email sent: ' + info.response);
+                  }
+                });
 
                 points = points + 1;
               }
