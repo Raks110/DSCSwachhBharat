@@ -250,18 +250,6 @@ app.post('/registering',function(req,res) {
             var ref = database.ref('users/' + referral).once('value').then((snapshot) => {
               users = snapshot.val();
               if(users != null){
-              var pointsRef = users.points + 1;
-              var ref = database.ref('users/' + referral).set({
-                registrationNum:users.registrationNum,
-                name:users.name,
-                email:users.email,
-                phone:users.phone,
-                password:users.password,
-                subscribed:users.subscribed,
-                referral:users.referral,
-                points:pointsRef
-              });
-
                 var mailOptions = {
                 from: 'dscmanipal.mit@gmail.com',
                 to: users.email,
@@ -276,6 +264,18 @@ app.post('/registering',function(req,res) {
                     console.log('Email sent: ' + info.response);
                   }
                 });
+
+              var pointsRef = users.points + 1;
+              var ref = database.ref('users/' + referral).set({
+                registrationNum:users.registrationNum,
+                name:users.name,
+                email:users.email,
+                phone:users.phone,
+                password:users.password,
+                subscribed:users.subscribed,
+                referral:users.referral,
+                points:pointsRef
+              });
 
                 points = points + 1;
               }
