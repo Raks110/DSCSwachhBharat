@@ -23,6 +23,7 @@ body{
 .tooltip {
   position: relative;
   border-bottom: 1px dotted black;
+  display: inline-block;
 }
 
 .tooltip .tooltiptext {
