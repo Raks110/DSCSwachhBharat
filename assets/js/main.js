@@ -13,7 +13,7 @@ window.onload = function(){
       document.getElementById("RegisterDSCManipal").style.display = "none";
     else
       document.getElementById("RegisterDSCManipal").innerText = "Start Quiz";
-    document.getElementById("referral").innerText = "You have scored " + logged[0] + " points through referrals. Your referral code is " + logged[1] + ". Share this with your friends to earn more points!";
+    document.getElementById("referral").innerText = "You have scored " + logged[0] + " referral points. Your referral code is " + logged[1] + ". Share this with your friends to earn more points and stay ahead of the race!";
   }
 }
 

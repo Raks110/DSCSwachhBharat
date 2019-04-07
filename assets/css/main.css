@@ -1271,6 +1271,10 @@ a.back-to-top:hover, a.back-to-top:focus {
   font-weight: 400;
 }
 
+
+.countdown-timer{
+  top:4%;
+}
 .footer-2 ul li a:hover {
   color: #E91E63;
 }

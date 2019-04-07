@@ -16,6 +16,9 @@
   .countdown-timer {
     padding: 260px 0;
   }
+  .countdown-timer{
+    top:4%;
+  }
 }
 
 /* tablets */
@@ -46,6 +49,9 @@
   }
   .time-countdown .time-entry span {
     font-size: 30px;
+  }
+  .countdown-timer{
+    top:4%;
   }
 }
 
@@ -83,6 +89,9 @@
   .subscribe-form .form-inline .btn {
     width: 125px;
   }
+  .countdown-timer{
+    top:7%;
+  }
 }
 
 
@@ -100,7 +109,6 @@
   }
 
 
-
 }
 
 @media (min-width: 320px) and (max-width: 540px) {
@@ -111,12 +119,18 @@
   .time-countdown .time-entry span {
     font-size: 30px;
   }
+  .countdown-timer{
+    top:0%;
+  }
 }
 
 @media(max-width:370px){
   .time-countdown .time-entry {
     width: 100px;
     height: 70px;
+  }
+  .countdown-timer{
+    top:0%;
   }
 
 }
