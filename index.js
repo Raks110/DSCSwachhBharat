@@ -405,7 +405,7 @@ app.get('/mismatch',function(req,res) {
 
 app.get('/register', function (req, res) {
   if(req.session.loggedin)
-    res.redirect("/quiz");
+    res.redirect("/login");
   else
     res.sendFile(path.join(__dirname+'/views/register.html'));
 });
@@ -463,4 +463,4 @@ app.post('/forgotten',function(req,res){
 
 var port = process.env.PORT;
 
-app.listen(port);
+app.listen(8080);
