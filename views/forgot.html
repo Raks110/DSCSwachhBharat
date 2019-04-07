@@ -39,12 +39,13 @@
 
       <div id="parent">
 
-
-        <button class="questNav" id="logCont" style="white-space:normal" onclick="location.href='/register';">Not registered yet? Register here.</button>
-
-        <form action="/logging" method="post" id="regForm">
+        <form action="/forgotten" method="post" id="regForm">
 
           <div class="questionBlock">
+
+            <div style="color:white">An email with your password will be sent to your registered email address. Please check your spam as well. Email us at desc.manipal@gmail.com in case of any discrepancies.</div>
+
+            <br/><br/>
 
             <table width="100%">
 
@@ -52,20 +53,13 @@
                   <td><div class="labels">Registration Number</div></td>
                   <td><input type="text" name="regNum" placeholder="Registration Number" class="quizOptions" minlength="9" maxlength="9" pattern="^(15|16|17|18)[0-9]{7}$" required/></td>
                 </tr>
-                <tr>
-                  <td><div class="labels">Password</div></td>
-                  <td><input type="password" name="pass" placeholder="Password" class="quizOptions" id="passiebaba" required/></td>
-                </tr>
             </table>
 
           </div>
 
-          <button class="questNav" id="continueLog"><i class="fas fa-angle-double-right" style="padding-right:10px"></i>Login</button>
+          <button class="questNav" id="continueLog"><i class="fas fa-angle-double-right" style="padding-right:10px"></i>Get Password</button>
 
         </form>
-
-
-                  <button class="questNav" id="forgotPass" onclick="location.href='/forgot';"><i class="far fa-question-circle" style="padding-right:10px"></i>Forgot Password?</button>
       </div>
 
       <div id="flexCont">

@@ -4,7 +4,16 @@ const path = require('path');
 var firebase = require("firebase");
 const bodyParser = require('body-parser');
 var session = require('express-session');
-var MemoryStore = require('memorystore')(session)
+var MemoryStore = require('memorystore')(session);
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'dscmanipal.mit@gmail.com',
+    pass: 'dscmanipal110'
+  }
+});
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -227,7 +236,7 @@ app.post('/registering',function(req,res) {
   const phone = req.body.phone;
   const password = req.body.pass;
   const subscribed = req.body.subscribe;
-  const referral = req.body.ref;
+  var referral = req.body.ref;
   const points = 0;
 
   if(referral == ""){
@@ -248,9 +257,25 @@ app.post('/registering',function(req,res) {
                 referral:users.referral,
                 points:pointsRef
               });
+
+                var mailOptions = {
+                from: 'dscmanipal.mit@gmail.com',
+                to: users.email,
+                subject: 'New Referral just signed up!',
+                text: name + " just signed up using your referral, and here's your referral point! You now have " + pointsRef + " referral points. Keep referring and stay ahead of your game! Your referral code is " + users.reg + "."
+                };
+
+                transporter.sendMail(mailOptions, function(error, info){
+                  if (error) {
+                    console.log(error);
+                  } else {
+                    console.log('Email sent: ' + info.response);
+                  }
+                });
             })
 
             points = points + 1;
+
   }
 
   var ref = database.ref('users/' + reg).once('value').then((snapshot) => {
@@ -268,6 +293,7 @@ app.post('/registering',function(req,res) {
           }
 
         addUser(user);
+
 
         var now = new Date();
 
@@ -313,7 +339,7 @@ app.post('/logging',function(req,res) {
   var ref = database.ref('users/' + reg).once('value').then((snapshot) => {
       users = snapshot.val();
       if(users == null){
-          res.redirect('/');
+          res.redirect('/register');
       }
       else{
         if(users.password != password){
@@ -380,6 +406,40 @@ app.get('/getScore',function(req,res) {
 app.get('/getTime',function(req,res) {
   var time = req.session.remainingTime;
   res.send(time.toString());
+})
+
+app.get('/forgot',function(req,res) {
+    res.sendFile(path.join(__dirname+'/views/forgot.html'));
+})
+
+app.post('/forgotten',function(req,res){
+
+  const reg = req.body.regNum;
+
+  var ref = database.ref('users/' + reg).once('value').then((snapshot) => {
+      users = snapshot.val();
+      if(users == null){
+          res.redirect('/register');
+      }
+      else{
+        var mailOptions = {
+        from: 'dscmanipal.mit@gmail.com',
+        to: users.email,
+        subject: 'Password Reset',
+        text: 'Your Swachh Bharat Quiz password is: ' + users.password
+        };
+
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
+        res.redirect('/login');
+      }
+
+  });
 })
 
 var port = process.env.PORT;

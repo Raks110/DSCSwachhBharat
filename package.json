@@ -26,6 +26,7 @@
     "express-session": "^1.15.6",
     "firebase": "^5.9.0",
     "firebase-tools": "^6.5.0",
-    "memorystore": "^1.6.1"
+    "memorystore": "^1.6.1",
+    "nodemailer": "^6.1.0"
   }
 }
