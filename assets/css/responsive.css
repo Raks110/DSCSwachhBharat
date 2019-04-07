@@ -87,9 +87,6 @@
 
 
 @media(max-width:540px){
-  .countdown-timer{
-    top:20%;
-  }
 
   .time-count{
     font-size: 20px;
@@ -120,9 +117,6 @@
   .time-countdown .time-entry {
     width: 100px;
     height: 70px;
-  }
-  .countdown-timer{
-    top:6%;
   }
 
 }

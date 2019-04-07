@@ -633,7 +633,6 @@ a.back-to-top:hover, a.back-to-top:focus {
   color: #fff;
   position: absolute;
   margin: 0 auto;
-  top: 28%;
   text-align: center;
   width: 100%;
 }
