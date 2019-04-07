@@ -237,7 +237,7 @@ app.post('/registering',function(req,res) {
   const password = req.body.pass;
   var subscribed = req.body.subscribe;
   var referral = req.body.ref;
-  const points = 0;
+  var points = 0;
 
   if(subscribed != "on")
     subscribed = "off";
@@ -249,6 +249,7 @@ app.post('/registering',function(req,res) {
 
             var ref = database.ref('users/' + referral).once('value').then((snapshot) => {
               users = snapshot.val();
+              if(users != null){
               var pointsRef = users.points + 1;
               var ref = database.ref('users/' + referral).set({
                 registrationNum:users.registrationNum,
@@ -275,9 +276,10 @@ app.post('/registering',function(req,res) {
                     console.log('Email sent: ' + info.response);
                   }
                 });
-            })
 
-            points = points + 1;
+                points = points + 1;
+              }
+            })
 
   }
 
