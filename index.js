@@ -247,6 +247,42 @@ app.post('/registering',function(req,res) {
 
         if(referral == ""){
           referral = "Not Applied.";
+
+                  var user={
+                  'name':name,
+                  'reg':reg,
+                  'email':email,
+                  'phone':phone,
+                  'password':password,
+                  'subscribed':subscribed,
+                  'referral':referral,
+                  'points':points
+                  }
+
+                addUser(user);
+
+
+                var now = new Date();
+
+                var ref = database.ref('userLogin/' + reg).once('value').then((snapshot) => {
+                    users = snapshot.val();
+
+                    if(users == null){
+                      if(new Date().getTime() - new Date("April 14 2019 13:00") >= 0)
+                        addUserLogin(reg,now);
+                    }
+
+
+                    req.session.loggedin = true;
+                    req.session.userID = reg;
+
+
+                    if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+                      res.redirect('/');
+                    else
+                      res.redirect('/quiz');
+
+                });
         }
         else{
                   if(referral != reg){
@@ -289,53 +325,125 @@ app.post('/registering',function(req,res) {
                       transporter.sendMail(mailOptions, function(error, info){
                         if (error) {
                           console.log(error);
+                          var user={
+                          'name':name,
+                          'reg':reg,
+                          'email':email,
+                          'phone':phone,
+                          'password':password,
+                          'subscribed':subscribed,
+                          'referral':referral,
+                          'points':points
+                          }
+
+                        addUser(user);
+
+
+                        var now = new Date();
+
+                        var ref = database.ref('userLogin/' + reg).once('value').then((snapshot) => {
+                            users = snapshot.val();
+
+                            if(users == null){
+                              if(new Date().getTime() - new Date("April 14 2019 13:00") >= 0)
+                                addUserLogin(reg,now);
+                            }
+
+
+                            req.session.loggedin = true;
+                            req.session.userID = reg;
+
+
+                            if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+                              res.redirect('/');
+                            else
+                              res.redirect('/quiz');
+
+                        });
                         } else {
                           console.log('Email sent: ' + info.response);
+
+                                points = points + 1;
+
+                                  var user={
+                                  'name':name,
+                                  'reg':reg,
+                                  'email':email,
+                                  'phone':phone,
+                                  'password':password,
+                                  'subscribed':subscribed,
+                                  'referral':referral,
+                                  'points':points
+                                  }
+
+                                addUser(user);
+
+
+                                var now = new Date();
+
+                                var ref = database.ref('userLogin/' + reg).once('value').then((snapshot) => {
+                                    users = snapshot.val();
+
+                                    if(users == null){
+                                      if(new Date().getTime() - new Date("April 14 2019 13:00") >= 0)
+                                        addUserLogin(reg,now);
+                                    }
+
+
+                                    req.session.loggedin = true;
+                                    req.session.userID = reg;
+
+
+                                    if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+                                      res.redirect('/');
+                                    else
+                                      res.redirect('/quiz');
+
+                                });
                         }
                       });
-
-                      points = points + 1;
                     }
                   })
                 }
+                else{
+                  var user={
+                  'name':name,
+                  'reg':reg,
+                  'email':email,
+                  'phone':phone,
+                  'password':password,
+                  'subscribed':subscribed,
+                  'referral':referral,
+                  'points':points
+                  }
+
+                addUser(user);
+
+
+                var now = new Date();
+
+                var ref = database.ref('userLogin/' + reg).once('value').then((snapshot) => {
+                    users = snapshot.val();
+
+                    if(users == null){
+                      if(new Date().getTime() - new Date("April 14 2019 13:00") >= 0)
+                        addUserLogin(reg,now);
+                    }
+
+
+                    req.session.loggedin = true;
+                    req.session.userID = reg;
+
+
+                    if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+                      res.redirect('/');
+                    else
+                      res.redirect('/quiz');
+
+                });
+                }
 
         }
-
-        var user={
-        'name':name,
-        'reg':reg,
-        'email':email,
-        'phone':phone,
-        'password':password,
-        'subscribed':subscribed,
-        'referral':referral,
-        'points':points
-        }
-
-      addUser(user);
-
-
-      var now = new Date();
-
-      var ref = database.ref('userLogin/' + reg).once('value').then((snapshot) => {
-          users = snapshot.val();
-
-          if(users == null){
-            if(new Date().getTime() - new Date("April 14 2019 13:00") >= 0)
-              addUserLogin(reg,now);
-          }
-
-
-          req.session.loggedin = true;
-          req.session.userID = reg;
-
-
-          if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
-            res.redirect('/');
-          else
-            res.redirect('/quiz');
-
-      });
 
       }
       else{
