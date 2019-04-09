@@ -42,24 +42,32 @@
               <a href = "http://dscmanipal.com/"><img src="/static/dsclogo.png" height="100px"></a>&nbsp&nbsp<a href="https://www.instagram.com/themitstore/"><img src="/static/mitstorelogo.jpeg" height="51px"></a>
             </div>
             <div class="heading-count">
-              <h2>SWACHH BHARAT QUIZ WILL BE LIVE IN</h2>
+              <div id="firstDiv"><i class="fas fa-medal" style="color:gold;padding-right:10px"></i><span id="firstrank"></span></div>
+              <div id="secondDiv"><i class="fas fa-medal" style="color:silver;padding-right:10px"></i><span id="secondrank"></span></div>
             </div>
+
+            <div id="yourRank"></div>
+
           </div>
           <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="row time-countdown justify-content-center">
-              <div id="clock" class="time-count"></div>
-            </div>
-            <div class="button-group">
-              <a href="/register" class="btn btn-common" id="RegisterDSCManipal">Register</a>
-              <a href="http://dscmanipal.com/" class="btn btn-border">About Us</a>
-              <a href="/leaderboard" class="btn btn-border leaderBoardBack"><i class="fas fa-trophy"></i>&nbsp&nbspLeaderboard</a>
-            </div>
-            <div class="social mt-4">
-              <a class="facebook" href="https://www.facebook.com/dscmanipal/"><i class="lni-facebook-filled"></i></a>
-              <a class="twitter" href="https://www.linkedin.com/company/dsc-manipal/"><i class="lni-linkedin-filled"></i></a>
-              <a class="instagram" href="https://medium.com/dsc-manipal"><i class="lni-medium"></i></a>
-            </div>
-            <div id = "referral" style="padding-top:30px;padding-bottom:30px"></div>
+            <table class="table table-striped" style="background-color:rgba(255,255,255,0.6);color:black;margin-top:30px">
+              <thead>
+                <tr>
+                  <td><b>Name</b></td>
+                  <td class="hideCol"><b>Registration No.</b></td>
+                  <td><b>Points</b></td>
+                </tr>
+              </thead>
+              <tbody id="leaderboardCont">
+              </tbody>
+              <tfoot id = "TableFooter">
+                <tr>
+                  <td colspan="3" id="onClickShowLoads">
+                    View All Ranks
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
             <div id="sponsor" style="padding-bottom:30px">Prizes sponsored by <a href = "https://www.instagram.com/themitstore/" style="text-decoration:none;color:#FFF"><strong>The MIT Store</strong></a></div>
           </div>
         </div>
@@ -83,7 +91,7 @@
     <script src="assets/js/classie.js"></script>
     <script src="assets/js/jquery.nav.js"></script>
     <script src="assets/js/jquery.easing.min.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/leadermain.js"></script>
 
 
     <script type="text/javascript">

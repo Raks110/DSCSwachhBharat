@@ -564,6 +564,50 @@ app.post('/forgotten',function(req,res){
   });
 })
 
+app.post('/leaderJson',function(req,res) {
+  const username = req.body.username;
+  const password = req.body.password;
+  if(username == "dscmanipal.mit.secure" && password == "desc.manipal.secure"){
+    var numPeeps;
+    var topRef = database.ref('users/').orderByChild('points').once('value').then((snapshot) => {
+      var jsonOb = snapshot.val();
+      numPeeps = Object.keys(jsonOb).length;
+        var regNums = Object.keys(jsonOb);
+        var dataArr = [];
+        for(var i = 0; i < numPeeps; i++){
+          dataArr.push(jsonOb[regNums[i]]);
+        }
+        dataArr.sort(function(a,b){
+            return b.points - a.points;
+          }
+        );
+        for(var i = 0; i < dataArr.length; i++) {
+          delete dataArr[i]['password'];
+          delete dataArr[i]['phone'];
+          delete dataArr[i]['email'];
+        }
+        var output = {
+          numReg:"",
+          dataJson:[]
+        }
+        output.numReg = numPeeps;
+        output.dataJson = dataArr;
+        res.send(output);
+    })
+  }
+  else{
+    var output = {
+      numReg:"-1",
+      dataJson:[]
+    }
+    res.send(output);
+  }
+})
+
+app.get('/leaderboard',function(req,res){
+    res.sendFile(path.join(__dirname+'/leaderboard.html'));
+})
+
 var port = process.env.PORT;
 
 app.listen(port);

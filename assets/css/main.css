@@ -26,6 +26,43 @@ h1, h2, h3, h4 {
   font-family: 'Montserrat', sans-serif;
 }
 
+#firstDiv{
+  font-size:30px;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+}
+
+#secondDiv{
+  font-size:23px;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+  padding-top:22px;
+}
+
+#yourRank{
+  padding-top:22px;
+  font-size:18px;
+}
+
+#onClickShowLoads{
+  cursor:pointer;
+  background-color: rgba(255,255,255,0.7)
+}
+
+#onClickShowLoads:hover{
+  background-color: rgba(0,0,0,0.8);
+  color:white;
+}
+
+.leaderBoardBack{
+  background-image:linear-gradient(to right,rgba(255, 184, 77,1), rgba(255, 184, 77,0.4));
+  transition-delay: 0.3s;
+}
+
+.leaderBoardBack:hover{
+  background-image:linear-gradient(to right,rgba(255, 184, 77,1), rgba(255, 184, 77,0));
+}
+
 a {
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;

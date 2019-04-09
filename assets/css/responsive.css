@@ -97,6 +97,26 @@
 
 @media(max-width:540px){
 
+  .hideCol{
+      display:none;
+      width:0;
+      height:0;
+      opacity:0;
+      visibility: collapse;
+  }
+
+  #firstDiv{
+    font-size:23px;
+  }
+
+  #secondDiv{
+    font-size: 18px;
+  }
+
+  #yourRank{
+    font-size: 15px;
+  }
+
   .time-count{
     font-size: 20px;
   }
@@ -132,5 +152,18 @@
   .countdown-timer{
     top:0%;
   }
+
+  #firstDiv{
+    font-size:18px;
+  }
+
+  #secondDiv{
+    font-size: 16px;
+  }
+
+  #yourRank{
+    font-size: 15px;
+  }
+
 
 }
