@@ -223,6 +223,23 @@ app.post('/done',function(req,res) {
 
     addUserScore(req.session.userID,score);
 
+    var ref = database.ref('users/' + req.session.userID).once('value').then((snapshot) => {
+      users = snapshot.val();
+      if(users != null){
+      var pointsRef = users.points + score;
+      var ref = database.ref('users/' + req.session.userID).set({
+        registrationNum:users.registrationNum,
+        name:users.name,
+        email:users.email,
+        phone:users.phone,
+        password:users.password,
+        subscribed:users.subscribed,
+        referral:users.referral,
+        points:pointsRef
+      });
+    }
+  });
+
     res.sendFile(path.join(__dirname+'/views/done.html'));
   }
 
@@ -610,4 +627,4 @@ app.get('/leaderboard',function(req,res){
 
 var port = process.env.PORT;
 
-app.listen(port);
+app.listen(8080);
