@@ -73,10 +73,11 @@ function addUserLogin(reg,now){
     });
 }
 
-function addUserScore(reg,score){
+function addUserScore(reg,score,timeRem){
   firebase.database().ref('userScore/' + reg).set({
     registrationNum:reg,
     timeDone: new Date().getTime(),
+    timeRem: timeRem,
     score:score
     });
 }
@@ -160,13 +161,14 @@ app.get('/quiz', function (req, res) {
         else{
           var ref = database.ref('userLogin/' + req.session.userID).once('value').then((snapshot) => {
             users = snapshot.val();
+            req.session.loginTime = users.timeLogin;
             req.session.remainingTime = 900 - ((new Date().getTime() - users.timeLogin)/1000);
             if((new Date().getTime() - users.timeLogin)/1000 > 900){
 
                 console.log((new Date().getTime() - users.timeLogin)/1000);
                 req.session.skipGet = 0;
                 req.session.score = req.session.skipGet;
-                addUserScore(req.session.userID,0);
+                addUserScore(req.session.userID,0,0);
                 res.redirect('/done');
             }
             else{
@@ -206,6 +208,8 @@ app.post('/done',function(req,res) {
   else{
     const reqJson = req.body.checked;
 
+    const remTime = 900 - (new Date().getTime() - req.session.loginTime)/1000;
+
     var score = 0;
 
     var questionsImp = require("./variables/answers");
@@ -221,7 +225,7 @@ app.post('/done',function(req,res) {
 
     req.session.score = score;
 
-    addUserScore(req.session.userID,score);
+    addUserScore(req.session.userID,score,remTime);
 
     var ref = database.ref('users/' + req.session.userID).once('value').then((snapshot) => {
       users = snapshot.val();
@@ -595,7 +599,28 @@ app.post('/leaderJson',function(req,res) {
           dataArr.push(jsonOb[regNums[i]]);
         }
         dataArr.sort(function(a,b){
-            return b.points - a.points;
+            if((b.points - a.points) == 0){
+              var innerRef = database.ref('userScore/' + a.registrationNum).once('value').then((snapshot) => {
+                innerUsers = snapshot.val();
+                if(innerUsers == null){
+                  return (b.points + 1) - a.points;
+                }
+                else{
+                  var inRef = database.ref('userScore/' + b.registrationNum).once('value').then((snapshot) => {
+                    inUsers = snapshot.val();
+                    if(inUsers == null){
+                      return (a.points + 1) - b.points;
+                    }
+                    else{
+                      return inUsers.timeRem - innerUsers.timeRem;
+                    }
+                  })
+                }
+              })
+
+            }
+            else
+              return b.points - a.points;
           }
         );
         for(var i = 0; i < dataArr.length; i++) {

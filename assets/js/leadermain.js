@@ -55,16 +55,6 @@ window.onload = function(){
           }
     }
   );
-
-  $("#onClickShowLoads").click(function() {
-
-          var elements = $();
-          for(var i = 10; i < dataJsonMain.numReg ; i++){
-            elements = elements.add("<tr><td>" + dataJsonMain.dataJson[i].name + "</td><td class='hideCol'>" + dataJsonMain.dataJson[i].registrationNum + "</td><td>" + dataJsonMain.dataJson[i].points + "</td></tr>");
-          }
-          $("#leaderboardCont").append(elements);
-          document.getElementById("onClickShowLoads").style.display = "none";
-  });
 }
 
 (function($) {
