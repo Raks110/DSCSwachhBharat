@@ -110,10 +110,10 @@ app.get('/getLogged',function(req,res){
 
 app.get('/',function(req,res) {
 
-  if(new Date().getTime() - new Date("April 14 2019 14:00") < 0)
+  //if(new Date().getTime() - new Date("April 14 2019 14:00") < 0)
     res.sendFile(path.join(__dirname+'/index.html'));
-  else
-    res.redirect('/register')
+  //else
+  //  res.redirect('/register')
 })
 
 app.get('/addQuests',function(req,res) {
@@ -650,6 +650,8 @@ app.get('/leaderboard',function(req,res){
     res.sendFile(path.join(__dirname+'/leaderboard.html'));
 })
 
-var port = process.env.PORT;
+//var port = process.env.PORT;
 
-app.listen(port);
+//app.listen(port);
+
+https.createServer(options, app).listen(4000);
