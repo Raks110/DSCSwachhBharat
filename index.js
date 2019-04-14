@@ -7,6 +7,15 @@ var session = require('express-session');
 var MemoryStore = require('memorystore')(session);
 var nodemailer = require('nodemailer');
 
+var fs = require('fs');
+
+const https = require('https');
+
+const options = {
+    key: fs.readFileSync('/etc/letsencrypt/live/quiz.dscmanipal.com/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/quiz.dscmanipal.com/fullchain.pem')
+};
+
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
