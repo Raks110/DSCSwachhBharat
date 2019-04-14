@@ -110,8 +110,9 @@ app.get('/getLogged',function(req,res){
 
 app.get('/',function(req,res) {
 
+
   //if(new Date().getTime() - new Date("April 14 2019 14:00") < 0)
-    res.sendFile(path.join(__dirname+'/index.html'));
+    res.sendFile(path.join(__dirname+'/leaderboard.html'));
   //else
   //  res.redirect('/register')
 })
@@ -135,6 +136,10 @@ app.get('/getQuests', function(req,res) {
 });
 
 app.get('/quiz', function (req, res) {
+
+  if(1)
+    res.redirect('/')
+
 
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
@@ -183,6 +188,9 @@ app.get('/quiz', function (req, res) {
 });
 
 app.get('/done',function(req,res){
+  if(1)
+    res.redirect('/')
+
 
   if(new Date().getTime() - new Date("April 14 2019 14:00") < 0)
     res.redirect('/');
@@ -200,6 +208,9 @@ app.get('/done',function(req,res){
 })
 
 app.post('/done',function(req,res) {
+
+  if(1)
+    res.redirect('/')
 
 
   if(new Date().getTime() - new Date("April 14 2019 14:00") < 0)
@@ -250,6 +261,10 @@ app.post('/done',function(req,res) {
 })
 
 app.post('/registering',function(req,res) {
+
+  if(1)
+    res.redirect('/')
+
 
   const reg = req.body.regNum;
   const email = req.body.email;
@@ -476,6 +491,10 @@ app.post('/registering',function(req,res) {
 
 app.post('/logging',function(req,res) {
 
+  if(1)
+    res.redirect('/')
+
+
   const reg = req.body.regNum;
   const password = req.body.pass;
 
@@ -528,6 +547,10 @@ app.get('/mismatch',function(req,res) {
 
 
 app.get('/register', function (req, res) {
+
+  if(1)
+    res.redirect('/')
+
   if(req.session.loggedin)
     res.redirect("/login");
   else
@@ -535,6 +558,10 @@ app.get('/register', function (req, res) {
 });
 
 app.get('/login', function (req, res) {
+
+  if(1)
+    res.redirect('/')
+
   if(req.session.loggedin)
     res.redirect("/quiz");
   else
@@ -552,6 +579,11 @@ app.get('/getTime',function(req,res) {
 })
 
 app.get('/forgot',function(req,res) {
+
+  if(1)
+    res.redirect('/')
+
+
     res.sendFile(path.join(__dirname+'/views/forgot.html'));
 })
 
@@ -652,6 +684,6 @@ app.get('/leaderboard',function(req,res){
 
 //var port = process.env.PORT;
 
-//app.listen(port);
+//app.listen(8080);
 
 https.createServer(options, app).listen(4000);
