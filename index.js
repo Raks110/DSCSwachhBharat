@@ -110,7 +110,7 @@ app.get('/getLogged',function(req,res){
 
 app.get('/',function(req,res) {
 
-  if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+  if(new Date().getTime() - new Date("April 14 2019 14:00") < 0)
     res.sendFile(path.join(__dirname+'/index.html'));
   else
     res.redirect('/register')
@@ -139,7 +139,7 @@ app.get('/quiz', function (req, res) {
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
 
-  if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+  if(new Date().getTime() - new Date("April 14 2019 14:00") < 0)
     res.redirect('/');
 
   else{
@@ -184,7 +184,7 @@ app.get('/quiz', function (req, res) {
 
 app.get('/done',function(req,res){
 
-  if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+  if(new Date().getTime() - new Date("April 14 2019 14:00") < 0)
     res.redirect('/');
 
   else{
@@ -202,7 +202,7 @@ app.get('/done',function(req,res){
 app.post('/done',function(req,res) {
 
 
-  if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+  if(new Date().getTime() - new Date("April 14 2019 14:00") < 0)
     res.redirect('/');
 
   else{
@@ -289,7 +289,7 @@ app.post('/registering',function(req,res) {
                     users = snapshot.val();
 
                     if(users == null){
-                      if(new Date().getTime() - new Date("April 14 2019 13:00") >= 0)
+                      if(new Date().getTime() - new Date("April 14 2019 14:00") >= 0)
                         addUserLogin(reg,now);
                     }
 
@@ -298,7 +298,7 @@ app.post('/registering',function(req,res) {
                     req.session.userID = reg;
 
 
-                    if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+                    if(new Date().getTime() - new Date("April 14 2019 14:00") < 0)
                       res.redirect('/');
                     else
                       res.redirect('/quiz');
@@ -366,7 +366,7 @@ app.post('/registering',function(req,res) {
                             users = snapshot.val();
 
                             if(users == null){
-                              if(new Date().getTime() - new Date("April 14 2019 13:00") >= 0)
+                              if(new Date().getTime() - new Date("April 14 2019 14:00") >= 0)
                                 addUserLogin(reg,now);
                             }
 
@@ -375,7 +375,7 @@ app.post('/registering',function(req,res) {
                             req.session.userID = reg;
 
 
-                            if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+                            if(new Date().getTime() - new Date("April 14 2019 14:00") < 0)
                               res.redirect('/');
                             else
                               res.redirect('/quiz');
@@ -406,7 +406,7 @@ app.post('/registering',function(req,res) {
                                     users = snapshot.val();
 
                                     if(users == null){
-                                      if(new Date().getTime() - new Date("April 14 2019 13:00") >= 0)
+                                      if(new Date().getTime() - new Date("April 14 2019 14:00") >= 0)
                                         addUserLogin(reg,now);
                                     }
 
@@ -415,7 +415,7 @@ app.post('/registering',function(req,res) {
                                     req.session.userID = reg;
 
 
-                                    if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+                                    if(new Date().getTime() - new Date("April 14 2019 14:00") < 0)
                                       res.redirect('/');
                                     else
                                       res.redirect('/quiz');
@@ -447,7 +447,7 @@ app.post('/registering',function(req,res) {
                     users = snapshot.val();
 
                     if(users == null){
-                      if(new Date().getTime() - new Date("April 14 2019 13:00") >= 0)
+                      if(new Date().getTime() - new Date("April 14 2019 14:00") >= 0)
                         addUserLogin(reg,now);
                     }
 
@@ -456,7 +456,7 @@ app.post('/registering',function(req,res) {
                     req.session.userID = reg;
 
 
-                    if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+                    if(new Date().getTime() - new Date("April 14 2019 14:00") < 0)
                       res.redirect('/');
                     else
                       res.redirect('/quiz');
@@ -497,7 +497,7 @@ app.post('/logging',function(req,res) {
               users = snapshot.val();
 
               if(users == null){
-                if(new Date().getTime() - new Date("April 14 2019 13:00") >= 0)
+                if(new Date().getTime() - new Date("April 14 2019 14:00") >= 0)
                   addUserLogin(reg,now);
               }
 
@@ -506,7 +506,7 @@ app.post('/logging',function(req,res) {
               req.session.userID = reg;
 
 
-              if(new Date().getTime() - new Date("April 14 2019 13:00") < 0)
+              if(new Date().getTime() - new Date("April 14 2019 14:00") < 0)
                 res.redirect('/');
               else
                 res.redirect('/quiz');
